@@ -1,0 +1,113 @@
+<template>
+    <ul :class="classes">
+        <slot></slot>
+    </ul>
+</template>
+<script>
+  const prefixCls = 'ss-timeline';
+
+  export default {
+    name: 'sTimeline',
+    props: {
+      pending: {
+        type: Boolean,
+        default: false
+      }
+    },
+    computed: {
+      classes () {
+        return [
+          `${prefixCls}`,
+          {
+            [`${prefixCls}-pending`]: this.pending
+          }
+        ];
+      }
+    }
+  };
+</script>
+<style>
+    .ss-timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+
+    .ss-timeline-item {
+        margin: 0 !important;
+        padding: 0 0 12px 0;
+        list-style: none;
+        position: relative
+    }
+
+    .ss-timeline-item-tail {
+        height: 100%;
+        border-left: 2px solid #35b0e3;
+        position: absolute;
+        left: 6px;
+        top: 0
+    }
+
+    .ss-timeline-item-pending .ss-timeline-item-tail {
+        display: none
+    }
+
+    .ss-timeline-item-head {
+        width: 14px;
+        height: 14px;
+        background-color: #000a17;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        position: absolute
+    }
+
+    .ss-timeline-item-head-blue {
+        border-color: #2d8cf0;
+        color: #2d8cf0
+    }
+
+    .ss-timeline-item-head-red {
+        border-color: #ed3f14;
+        color: #ed3f14
+    }
+
+    .ss-timeline-item-head-green {
+        border-color: #19be6b;
+        color: #19be6b
+    }
+
+    .ss-timeline-item-head-custom {
+        width: 40px;
+        height: auto;
+        margin-top: 6px;
+        padding: 3px 0;
+        text-align: center;
+        line-height: 1;
+        border: 0;
+        border-radius: 0;
+        font-size: 14px;
+        position: absolute;
+        left: -13px;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%)
+    }
+
+    .ss-timeline-item-content {
+        padding: 1px 1px 10px 24px;
+        font-size: 12px;
+        position: relative;
+        top: -3px
+    }
+
+    .ss-timeline-item:last-child .ss-timeline-item-tail {
+        display: none
+    }
+
+    .ss-timeline.ss-timeline-pending .ss-timeline-item:nth-last-of-type(2) .ss-timeline-item-tail {
+        border-left: 1px dotted #e9eaec
+    }
+
+    .ss-timeline.ss-timeline-pending .ss-timeline-item:nth-last-of-type(2) .ss-timeline-item-content {
+        min-height: 48px
+    }
+</style>

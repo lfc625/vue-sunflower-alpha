@@ -49,6 +49,9 @@ import TableTree from './components/table-tree'
 import LoadingBar from './components/loading-bar'
 import{Timeline, TimelineItem}from "./components/timeline";
 import Spinner from './components/spin'
+
+import './style/theme-dark.less'
+import './style/baseCss'
 const components = [
     Alert,
     AutoComplete,

@@ -2,8 +2,8 @@ const path = require("path");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const ExtractDarkLess = new ExtractTextPlugin('../css/theme-dark.css');
-const ExtractChalkLess = new ExtractTextPlugin('../css/theme-chalk.css');
+const ExtractDarkLess = new ExtractTextPlugin('theme-dark.css');
+const ExtractChalkLess = new ExtractTextPlugin('theme-chalk.css');
 module.exports = {
   entry: {
     sunflower: path.resolve(__dirname, "../src/index.js")
@@ -18,29 +18,14 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: "vue-loader",
-        options: {
-          loaders: {
-            "scss": ExtractTextPlugin.extract({
-              fallback: "vue-style-loader",
-              use: ["css-loader", "sass-loader"]
-            }),
-            "css": ExtractTextPlugin.extract({
-              fallback: "vue-style-loader",
-              use: "css-loader"
-            })
-          }
-        }
+        loader: "vue-loader"
       },
       {
-        test: /\.less$/,
-        include: path.resolve(__dirname, "../src/theme-dark"),
-        loader: ExtractDarkLess.extract(["less-loader"])
-      },
-      {
-        test: /\.less$/,
-        include: path.resolve(__dirname, "../src/theme-chalk"),
-        loader: ExtractChalkLess.extract(["less-loader"])
+        test: /\.(less|css)$/,
+        loader: ExtractDarkLess.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "less-loader"]
+        })
       },
       {
         test: /\.js$/,
@@ -50,13 +35,6 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'url-loader'
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
       }
     ]
   },
@@ -69,7 +47,6 @@ module.exports = {
         },
         comments: false
       }),
-      new ExtractTextPlugin("styles.css"),
       ExtractDarkLess,
       ExtractChalkLess
   ],

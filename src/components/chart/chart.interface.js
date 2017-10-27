@@ -674,6 +674,7 @@ echart.percentBarChart = function (el, data, title, show, position, wid, config)
         type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
       },
       formatter: function (params) {
+        console.log(params)
         var tar = params[0]
         var returnStr = tar.value + '%'
         if (typeof tar.seriesName !== '') {

@@ -1,4 +1,6 @@
 const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractDarkLess = new ExtractTextPlugin('theme-dark.css');
 
 module.exports = {
   entry: {
@@ -21,8 +23,11 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
-        loader: ["style-loader", "css-loader"]
+        test: /\.(less|css)$/,
+        loader: ExtractDarkLess.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "less-loader"]
+        })
       },
       {
         test: /\.svg/,
@@ -30,6 +35,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    ExtractDarkLess
+  ],
   resolve: {
     extensions: [".js", ".json", ".vue"]
   },

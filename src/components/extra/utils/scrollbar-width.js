@@ -7,7 +7,7 @@ export default function() {
   if (scrollBarWidth !== undefined) return scrollBarWidth;
 
   const outer = document.createElement('div');
-  outer.className = 's-scrollbar-wrap';
+  outer.className = 'el-scrollbar__wrap';
   outer.style.visibility = 'hidden';
   outer.style.width = '100px';
   outer.style.position = 'absolute';
@@ -23,6 +23,7 @@ export default function() {
 
   const widthWithScroll = inner.offsetWidth;
   outer.parentNode.removeChild(outer);
+  scrollBarWidth = widthNoScroll - widthWithScroll;
 
-  return widthNoScroll - widthWithScroll;
+  return scrollBarWidth;
 };

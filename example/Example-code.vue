@@ -9,7 +9,8 @@
 
 <script>
   import Hljs from "highlightjs/highlight.pack.min";
-  import "./code-theme.css";
+  import "./theme-dark/code-theme.css";
+  import "./theme-chalk/code-theme.css";
   export default {
     name: 'example-code',
 

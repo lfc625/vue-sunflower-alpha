@@ -596,4 +596,12 @@
     color: rgb(222, 233, 243);
     cursor: default;
   }
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
 </style>

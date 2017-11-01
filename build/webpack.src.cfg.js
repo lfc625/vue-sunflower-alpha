@@ -21,8 +21,15 @@ module.exports = {
         loader: "vue-loader"
       },
       {
-        test: /\.(less|css)$/,
+        test: /theme-dark[\s\S]*\.(less|css)$/,
         loader: ExtractDarkLess.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "less-loader"]
+        })
+      },
+      {
+        test: /theme-chalk[\s\S]*\.(less|css)$/,
+        loader: ExtractChalkLess.extract({
           fallback: "style-loader",
           use: ["css-loader", "less-loader"]
         })

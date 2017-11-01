@@ -7,6 +7,10 @@ import Copy from "./copy";
 import Tb from "./tb/Tb";
 import TbI from "./tb/TbI";
 import ExampleCode from './Example-code'
+import './theme-dark/demo.css'
+import './theme-chalk/demo.css'
+import './theme-chalk/docs.css'
+import './theme-dark/docs.css'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);

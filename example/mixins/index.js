@@ -1,5 +1,6 @@
 import Hljs from "highlightjs/highlight.pack.min";
-import "../code-theme.css";
+import "../theme-dark/code-theme.css";
+import "../theme-chalk/code-theme.css";
 
 let i = document.createElement("i");
 i.className = 'iconfont icon-bottom';

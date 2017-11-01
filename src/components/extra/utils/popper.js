@@ -282,7 +282,7 @@
       content: '',
       contentType: 'text',
       arrowTagName: 'div',
-      arrowClassNames: [ 'popper__arrow' ],
+      arrowClassNames: [ 'popper-arrow' ],
       arrowAttributes: [ 'x-arrow']
     };
     config = Object.assign({}, defaultConfig, config);

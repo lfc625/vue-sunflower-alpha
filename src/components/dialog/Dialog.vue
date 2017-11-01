@@ -1,11 +1,11 @@
 <template>
   <transition name="dialog-fade">
-    <div class="s-dialog-wrapper" v-show="visible">
+    <div class="s-dialog-wrapper" v-show="visible" @click.self="handleWrapperClick">
       <div
-              class="s-dialog"
-              :class="[sizeClass, customClass]"
-              ref="dialog"
-              :style="style">
+        class="s-dialog"
+        :class="[sizeClass, {'s-dialog-center': center}, customClass]"
+        ref="dialog"
+        :style="style">
         <div class="s-dialog-header">
           <slot name="title">
             <span class="s-dialog-title">{{title}}</span>
@@ -47,6 +47,12 @@
         type: Boolean,
         default: true
       },
+
+      appendToBody: {
+        type: Boolean,
+        default: false
+      },
+
       lockScroll: {
         type: Boolean,
         default: true
@@ -75,7 +81,11 @@
         type: String,
         default: '15%'
       },
-      beforeClose: Function
+      beforeClose: Function,
+      center: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -94,6 +104,9 @@
           this.$nextTick(() => {
             this.$refs.dialog.scrollTop = 0;
           });
+          if (this.appendToBody) {
+            document.body.appendChild(this.$el);
+          }
         } else {
           this.$el.removeEventListener('scroll', this.updatePopper);
           this.$emit('close');
@@ -112,6 +125,10 @@
       }
     },
     methods: {
+      handleWrapperClick() {
+        if (!this.closeOnClickModal) return;
+        this.handleClose();
+      },
       handleClose() {
         if (typeof this.beforeClose === 'function') {
           this.beforeClose(this.close);
@@ -128,6 +145,9 @@
       if (this.value) {
         this.rendered = true;
         this.open();
+        if (this.appendToBody) {
+          document.body.appendChild(this.$el);
+        }
       }
     }
   };
@@ -251,6 +271,20 @@
       transform: translate3d(0,-20px,0);
       opacity: 0
     }
+  }
+
+  .s-dialog-center {
+    text-align:center
+  }
+
+  .s-dialog-center .s-dialog-body {
+    text-align:initial;
+    padding:25px 27px 30px
+  }
+
+  .s-dialog-center .s-dialog-footer {
+    text-align:inherit;
+    padding-bottom:30px
   }
 
 </style>

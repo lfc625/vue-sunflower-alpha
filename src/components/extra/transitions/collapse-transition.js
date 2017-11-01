@@ -65,6 +65,7 @@ class Transition {
 }
 
 export default {
+  name: 'SCollapseTransition',
   functional: true,
   render(h, { children }) {
     const data = {

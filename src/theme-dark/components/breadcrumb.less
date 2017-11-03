@@ -1,0 +1,40 @@
+.s-breadcrumb {
+  font-size:@font-size-base;
+  line-height:1
+}
+.s-breadcrumb:after,.s-breadcrumb:before {
+  display:table;
+  content:""
+}
+.s-breadcrumb:after {
+  clear:both
+}
+.s-breadcrumb__separator {
+  margin:0 9px;
+  font-weight:700;
+  color:#b4bccc
+}
+.s-breadcrumb__separator[class*=icon] {
+  margin:0 6px;
+  font-weight:400
+}
+.s-breadcrumb__item {
+  float:left
+}
+.s-breadcrumb__inner,.s-breadcrumb__inner a {
+  font-weight:700;
+  transition:color .2s cubic-bezier(.645,.045,.355,1);
+  color:#2d2f33
+}
+.s-breadcrumb__inner:hover,.s-breadcrumb__inner a:hover {
+  color:#409eff;
+  cursor:pointer
+}
+.s-breadcrumb__item:last-child .s-breadcrumb__inner,.s-breadcrumb__item:last-child .s-breadcrumb__inner:hover,.s-breadcrumb__item:last-child .s-breadcrumb__inner a,.s-breadcrumb__item:last-child .s-breadcrumb__inner a:hover {
+  font-weight:400;
+  color:#5a5e66;
+  cursor:text
+}
+.s-breadcrumb__item:last-child .s-breadcrumb__separator {
+  display:none
+}

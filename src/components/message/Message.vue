@@ -9,7 +9,12 @@
       <img class="s-message-img" :src="typeImg" alt="" v-if="!iconClass">
       <div class="s-message-warpper">
         <div class="s-message-group" :class="{ 'is-with-icon': iconClass }">
-          <p><i class="s-message-icon" :class="iconClass" v-if="iconClass"></i>{{ message }}</p>
+            <p v-if="!dangerouslyUseHTMLString">
+              <i class="s-message-icon" :class="iconClass" v-if="iconClass"></i>{{ message }}
+            </p>
+            <p v-else>
+              <i class="s-message-icon" :class="iconClass" v-if="iconClass"></i><span v-html="message"></span>
+            </p>
           <div v-if="showClose" class="s-message-closeBtn iconfont icon-error" @click="close"></div>
         </div>
       </div>
@@ -41,7 +46,8 @@
         onClose: null,
         showClose: false,
         closed: false,
-        timer: null
+        timer: null,
+        dangerouslyUseHTMLString: false
       };
     },
 
@@ -136,7 +142,6 @@
     border: solid 1px rgba(210, 3, 0, 0.749);
     background-color: rgba(153, 1, 0, 0.749);
   }
-
  */
   .s-message .el-icon-circle-check {
     color: #13ce66
@@ -200,7 +205,8 @@
     color: #97a8be
   }
 
-  .s-message-fade-enter, .s-message-fade-leave-active {
+  .s-message-fade-enter,
+  .s-message-fade-leave-active {
     opacity: 0;
     transform: translate(-50%, -100%)
   }

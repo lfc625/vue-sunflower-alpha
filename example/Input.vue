@@ -7,35 +7,456 @@
       <div class="example-demo">
         <s-input v-model="input" placeholder="请输入内容"></s-input>
       </div>
-      <div class="example-code">
-        <pre><code>
-    &lt;s-input v-model="input" placeholder="请输入内容"&gt;&lt;/s-input&gt;
-    &lt;script&gt;
-    export default {
-      data() {
-        return {
-          input: ""
-        }
-      }
-    }
-    &lt;/script&gt;
-        </code></pre>
-      </div>
+      <example-code>
+        <textarea>
+          &lt;s-input v-model="input" placeholder="请输入内容"&gt;&lt;/s-input&gt;
+
+          &lt;script&gt;
+          export default {
+            data() {
+              return {
+                input: ""
+              }
+            }
+          }
+          &lt;/script&gt;
+        </textarea>
+        <div class="description">
+          <p>要使用它，只需要在<code>s-input-number</code>元素中使用<code>v-model</code>绑定变量即可，变量的初始值即为默认值。</p>
+        </div>
+        <pre><code></code></pre>
+      </example-code>
     </div>
 
-    <h3>a</h3>
+    <h3>禁用状态</h3>
     <div class="example">
       <div class="example-demo">
-        <s-input placeholder="请输入内容">
-          <template slot="prepend">Http://</template>
-        </s-input>
+        <s-input placeholder="请输入内容" v-model="input1" :disabled="true"></s-input>
       </div>
-      <div class="example-code">
-        <textarea></textarea>
+      <example-code>
+        <textarea>
+          <s-input placeholder="请输入内容" v-model="input1" :disabled="true"></s-input>
+
+          <script>
+            export default {
+              data() {
+                return {
+                  input1: ''
+                }
+              }
+            }
+          </script>
+        </textarea>
+        <div class="description">
+          <p>通过 <code>disabled</code> 属性指定是否禁用 input 组件</p>
+        </div>
         <pre><code></code></pre>
-      </div>
+      </example-code>
     </div>
 
+    <h3>带 icon 的输入框</h3>
+    <p>带有图标标记输入类型</p>
+    <div class="example">
+      <div class="example-demo">
+          属性方式：
+          <s-input
+            placeholder="请选择日期"
+            suffix-icon="calendar"
+            v-model="input2">
+          </s-input>
+          <s-input
+            placeholder="请输入内容"
+            prefix-icon="magnifier"
+            v-model="input3">
+          </s-input>
+
+          slot 方式：
+          <s-input
+            placeholder="请选择日期"
+            v-model="input4">
+            <i slot="suffix" class="s-input-icon iconfont icon-calendar"></i>
+          </s-input>
+          <s-input
+            placeholder="请输入内容"
+            v-model="input5">
+            <i slot="prefix" class="s-input-icon iconfont icon-magnifier"></i>
+          </s-input>
+      </div>
+
+      <example-code>
+        <textarea>
+            属性方式：
+            <s-input
+              placeholder="请选择日期"
+              suffix-icon="el-icon-date"
+              v-model="input2">
+            </s-input>
+            <s-input
+              placeholder="请输入内容"
+              prefix-icon="el-icon-search"
+              v-model="input3">
+            </s-input>
+            slot 方式：
+            <s-input
+              placeholder="请选择日期"
+              v-model="input4">
+              <i slot="suffix" class="s-input-icon iconfont icon-calendar"></i>
+            </s-input>
+            <s-input
+              placeholder="请输入内容"
+              v-model="input5">
+              <i slot="prefix" class="s-input-icon iconfont icon-magnifier"></i>
+            </s-input>
+
+          <script>
+            export default {
+              data() {
+                return {
+                  input2: '',
+                  input3: '',
+                  input4: '',
+                  input5: ''
+                }
+              }
+            }
+          </script>
+        </textarea>
+        <div class="description">
+        </div>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+
+    <h3>文本域</h3>
+    <p>用于输入多行文本信息，通过将 type 属性的值指定为 textarea。</p>
+    <div class="example">
+      <div class="example-demo">
+        <s-input
+          type="textarea"
+          :rows="2"
+          placeholder="请输入内容"
+          v-model="textarea">
+        </s-input>
+      </div>
+      <example-code>
+        <textarea>
+          <s-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+          </s-input>
+
+          <script>
+          export default {
+            data() {
+              return {
+                textarea: ''
+              }
+            }
+          }
+          </script>
+        </textarea>
+        <div class="description">
+          <p>文本域高度可通过 <code>rows</code> 属性控制</p>
+        </div>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+
+    <h3>可自适应文本高度的文本域</h3>
+    <p>通过设置 <code>autosize</code> 属性可以使得文本域的高度能够根据文本内容自动进行调整，
+      并且 <code>autosize</code> 还可以设定为一个对象，指定最小行数和最大行数。
+    </p>
+    <div class="example">
+      <div class="example-demo">
+        <s-input
+          type="textarea"
+          autosize
+          placeholder="请输入内容"
+          v-model="textarea2">
+        </s-input>
+        <div style="margin: 20px 0;"></div>
+        <s-input
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 4}"
+          placeholder="请输入内容"
+          v-model="textarea3">
+        </s-input>
+      </div>
+      <example-code>
+        <textarea>
+          <s-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="textarea2">
+          </s-input>
+          <div style="margin: 20px 0;"></div>
+          <s-input
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="textarea3">
+          </s-input>
+
+          <script>
+          export default {
+            data() {
+              return {
+                textarea2: '',
+                textarea3: ''
+              }
+            }
+          }
+          </script>
+        </textarea>
+        <div class="description">
+          <p>文本域高度可通过 <code>rows</code> 属性控制</p>
+        </div>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+
+    <h3>复合型输入框</h3>
+    <p>可前置或后置元素，一般为标签或按钮</p>
+    <div class="example">
+      <div class="example-demo">
+        <div>
+          <s-input placeholder="请输入内容" v-model="inputHTTP">
+            <template slot="prepend">Http://</template>
+          </s-input>
+        </div>
+        <div style="margin-top: 15px;">
+          <s-input placeholder="请输入内容" v-model="inputCOM">
+            <template slot="append">.com</template>
+          </s-input>
+        </div>
+        <div style="margin-top: 15px;">
+          <s-input placeholder="请输入内容" v-model="inputSelect" class="input-with-select">
+            <s-select v-model="select" slot="prepend" placeholder="请选择">
+              <s-option label="餐厅名" value="1"></s-option>
+              <s-option label="订单号" value="2"></s-option>
+              <s-option label="用户电话" value="3"></s-option>
+            </s-select>
+            <s-button slot="append" icon="magnifier"></s-button>
+          </s-input>
+        </div>
+      </div>
+      <example-code>
+        <textarea>
+          <div>
+            <s-input placeholder="请输入内容" v-model="inputHTTP">
+              <template slot="prepend">Http://</template>
+            </s-input>
+          </div>
+          <div style="margin-top: 15px;">
+            <s-input placeholder="请输入内容" v-model="inputCOM">
+              <template slot="append">.com</template>
+            </s-input>
+          </div>
+          <div style="margin-top: 15px;">
+            <s-input placeholder="请输入内容" v-model="inputSelect" class="input-with-select">
+              <s-select v-model="select" slot="prepend" placeholder="请选择">
+                <s-option label="餐厅名" value="1"></s-option>
+                <s-option label="订单号" value="2"></s-option>
+                <s-option label="用户电话" value="3"></s-option>
+              </s-select>
+              <s-button slot="append" icon="magnifier"></s-button>
+            </s-input>
+          </div>
+
+          <style>
+            .s-select .s-input {
+              width: 100px;
+            }
+            .input-with-select .s-input-group_prepend {
+              background: transparent;
+            }
+          </style>
+
+          <script>
+            export default {
+              data() {
+                return {
+                  inputHTTP: '',
+                  inputCOM: '',
+                  inputSelect: '',
+                  select: ''
+                }
+              }
+            }
+          </script>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+
+    <h3>尺寸</h3>
+    <div class="example">
+      <div class="example-demo">
+        <div class="demo-input-size">
+          <s-input
+            placeholder="请输入内容"
+            suffix-icon="calendar"
+            v-model="input6">
+          </s-input>
+          <s-input
+            size="medium"
+            placeholder="请输入内容"
+            suffix-icon="calendar"
+            v-model="input7">
+          </s-input>
+          <s-input
+            size="small"
+            placeholder="请输入内容"
+            suffix-icon="calendar"
+            v-model="input8">
+          </s-input>
+          <s-input
+            size="mini"
+            placeholder="请输入内容"
+            suffix-icon="calendar"
+            v-model="input9">
+          </s-input>
+        </div>
+      </div>
+      <example-code>
+        <textarea>
+          <div class="demo-input-size">
+            <s-input
+              placeholder="请输入内容"
+              suffix-icon="calendar"
+              v-model="input6">
+            </s-input>
+            <s-input
+              size="medium"
+              placeholder="请输入内容"
+              suffix-icon="calendar"
+              v-model="input7">
+            </s-input>
+            <s-input
+              size="small"
+              placeholder="请输入内容"
+              suffix-icon="calendar"
+              v-model="input8">
+            </s-input>
+            <s-input
+              size="mini"
+              placeholder="请输入内容"
+              suffix-icon="calendar"
+              v-model="input9">
+            </s-input>
+          </div>
+
+          <script>
+          export default {
+            data() {
+              return {
+                input6: '',
+                input7: '',
+                input8: '',
+                input9: ''
+              }
+            }
+          }
+          </script>
+
+          <style>
+            .demo-input-size .s-input {
+              width: 200px;
+              margin-right: 15px;
+            }
+          </style>
+        </textarea>
+        <div class="description">
+          <p>可通过 <code>size</code> 属性指定输入框的尺寸，除了默认的大小外，还提供了 large、small 和 mini 三种尺寸。</p>
+        </div>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+
+    <h3>Attributes</h3>
+    <s-tb>
+      <s-tb-i title="type" desc="类型" type="string" value="text/textarea" init="text"></s-tb-i>
+      <s-tb-i title="value" desc="绑定值值" type="string/number" value="-" init="-"></s-tb-i>
+      <s-tb-i title="maxlength" desc="最大输入长度" type="number" value="-" init="-"></s-tb-i>
+      <s-tb-i title="minlength" desc="最小输入长度" type="number" value="-" init="-"></s-tb-i>
+      <s-tb-i title="placeholder" desc="输入框占位文本" type="string/number" value="string" init="-"></s-tb-i>
+      <s-tb-i title="disabled" desc="禁用" type="boolean" value="-" init="false"></s-tb-i>
+      <s-tb-i title="size" desc="输入框尺寸" type="string" value="medium/small/mini" init="-"></s-tb-i>
+      <s-tb-i title="prefix-icon" desc="输入框头部图标" type="string" value="-" init="-"></s-tb-i>
+      <s-tb-i title="suffix-icon" desc="输入框尾部图标" type="string" value="-" init="-"></s-tb-i>
+      <s-tb-i title="rows" desc="输入框行数，只对 type='textarea' 有效" type="number" value="-" init="2"></s-tb-i>
+      <s-tb-i title="autosize" desc="自适应内容高度，只对 type='textarea' 有效，可传入对象，如，{ minRows: 2, maxRows: 6 }" type="boolean/object" value="-" init="false"></s-tb-i>
+      <s-tb-i title="auto-complete" desc="原生属性，自动补全" type="string" value="on, off" init="off"></s-tb-i>
+      <s-tb-i title="name" desc="原生属性" type="string" value="-" init="-"></s-tb-i>
+      <s-tb-i title="readonly" desc="原生属性，是否只读" type="boolean" value="-" init="false"></s-tb-i>
+      <s-tb-i title="max" desc="原生属性，设置最大值" type="-" value="-" init="-"></s-tb-i>
+      <s-tb-i title="min" desc="原生属性，设置最小值" type="-" value="-" init="-"></s-tb-i>
+      <s-tb-i title="step" desc="原生属性，设置输入字段的合法数字间隔" type="-" value="-" init="-"></s-tb-i>
+      <s-tb-i title="resize" desc="控制是否能被用户缩放" type="string" value="none, both, horizontal, vertical" init="-"></s-tb-i>
+      <s-tb-i title="autofocus" desc="原生属性，自动获取焦点" type="boolean" value="-" init="false"></s-tb-i>
+      <s-tb-i title="form" desc="原生属性" type="string" value="-" init="-"></s-tb-i>
+      <s-tb-i title="label" desc="输入框关联的label文字" type="string" value="-" init="-"></s-tb-i>
+    </s-tb>
+
+    <h3>Slot</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>name</th><th>说明</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>prefix</td><td>输入框头部内容</td>
+        </tr>
+        <tr>
+          <td>suffix</td><td>suffix</td>
+        </tr>
+        <tr>
+          <td>prepend</td><td>输入框前置内容</td>
+        </tr>
+        <tr>
+          <td>append</td><td>输入框后置内容</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Events</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>事件名称</th><th>说明</th><th>回调参数</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>blur</td><td>在 Input 失去焦点时触发</td><td>(event: Event)</td>
+        </tr>
+        <tr>
+          <td>focus</td><td>在 Input 获得焦点时触发</td><td>(event: Event)</td>
+        </tr>
+        <tr>
+          <td>change</td><td>在 Input 值改变时触发</td><td>(value: string | number)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Methods</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>方法名	</th><th>说明</th><th>参数</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>focus</td><td>使 input 获取焦点	</td><td>-</td>
+        </tr>
+      </tbody>
+    </table>
   </article>
 </template>
 
@@ -46,7 +467,23 @@
         restaurants: [],
         state4: '',
         timeout: null,
-        input: ''
+        input: '',
+        input1: '',
+        input2: '',
+        input3: '',
+        input4: '',
+        input5: '',
+        input6: '',
+        input7: '',
+        input8: '',
+        input9: '',
+        textarea: '',
+        textarea2: '',
+        textarea3: '',
+        inputHTTP: '',
+        inputCOM: '',
+        inputSelect:'',
+        select: ''
       };
     },
     methods: {
@@ -125,3 +562,16 @@
     }
   };
 </script>
+
+<style>
+  .s-select .s-input {
+    width: 100px;
+  }
+  .input-with-select .s-input-group_prepend {
+    background: transparent;
+  }
+  .demo-input-size .s-input {
+    width: 200px;
+    margin-right: 15px;
+  }
+</style>

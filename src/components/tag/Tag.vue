@@ -1,9 +1,13 @@
 <template>
-  <transition :name="closeTransition ? '' : 's-zoom-in-center'">
+  <transition :name="disableTransitions ? '' : 's-zoom-in-center'">
     <span
-            class="s-tag"
-            :class="[type ? 's-tag-' + type : '', {'is-hit': hit}]"
-            :style="{backgroundColor: color}">
+      class="s-tag"
+      :class="[
+        type ? 's-tag-' + type : '',
+        tagSize && `s-tag-${tagSize}`,
+        {'is-hit': hit}
+      ]"
+      :style="{backgroundColor: color}">
       <slot></slot>
       <i class="iconfont icon-error-bold s-tag-close s-icon-close"
          v-if="closable"
@@ -20,12 +24,18 @@
       closable: Boolean,
       type: String,
       hit: Boolean,
-      closeTransition: Boolean,
-      color: String
+      disableTransitions: Boolean,
+      color: String,
+      size: String
     },
     methods: {
       handleClose(event) {
         this.$emit('close', event);
+      }
+    },
+    computed: {
+      tagSize() {
+        return this.size || (this.$ELEMENT || {}).size;
       }
     }
   };
@@ -143,6 +153,7 @@
   .s-tag-danger.is-hit {
     border-color: rgb(223, 67, 54);
   }
+
   .input-new-tag {
       margin-left: 10px;
       height: 24px;
@@ -151,8 +162,8 @@
       padding-bottom: 0;
       display: inline-block;
       width: 80px;
-
   }
+
   .button-new-tag {
       margin-left: 10px;
       height: 24px;
@@ -160,6 +171,38 @@
       padding-top: 0;
       padding-bottom: 0;
       display: inline-block;
+  }
+
+  .s-tag-medium {
+    height:28px;
+    line-height:26px
+  }
+
+  .s-tag-medium .s-icon-close {
+    -webkit-transform:scale(.8);
+    transform:scale(.8)
+  }
+
+  .s-tag-small {
+    height:24px;
+    padding:0 8px;
+    line-height:22px
+  }
+
+  .s-tag-small .s-icon-close {
+    -webkit-transform:scale(.8);
+    transform:scale(.8)
+  }
+
+  .s-tag-mini {
+    height:20px;
+    padding:0 5px;
+    line-height:19px
+  }
+  .s-tag-mini .s-icon-close {
+    margin-left:-3px;
+    -webkit-transform:scale(.7);
+    transform:scale(.7)
   }
 </style>
 

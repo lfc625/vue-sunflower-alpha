@@ -1,12 +1,12 @@
 <template>
   <transition name="s-notification-fade">
     <div
-      class="s-notification"
-      :class="customClass"
+      :class="['s-notification', customClass]"
       v-show="visible"
       :style="{ bottom: top ? top + 'px' : 'auto' }"
       @mouseenter="clearTimer()"
-      @mouseleave="startTimer()">
+      @mouseleave="startTimer()"
+      @click="click">
       <i
         class="s-notification-icon"
         :class="[ typeClass, iconClass ]"
@@ -16,10 +16,14 @@
         <h2 class="s-notification-title" v-text="title"></h2>
         <div class="s-notification-content">
           <slot>
-            <div v-html="message"></div>
+            <p v-if="!dangerouslyUseHTMLString">{{ message }}</p>
+            <p v-else v-html="message"></p>
           </slot>
         </div>
-        <div class="s-notification-closeBtn iconfont icon-error" @click="close"></div>
+        <div
+          class="s-notification-closeBtn iconfont icon-error"
+          v-if="showClose"
+          @click.stop="close"></div>
       </div>
     </div>
   </transition>
@@ -41,12 +45,15 @@
         message: '',
         duration: 4500,
         type: '',
+        showClose: true,
         customClass: '',
         iconClass: '',
         onClose: null,
+        onClick: null,
         closed: false,
         top: null,
-        timer: null
+        timer: null,
+        dangerouslyUseHTMLString: false
       };
     },
 
@@ -70,6 +77,12 @@
         this.$el.removeEventListener('transitionend', this.destroyElement);
         this.$destroy(true);
         this.$el.parentNode.removeChild(this.$el);
+      },
+
+      click() {
+        if (typeof this.onClick === 'function') {
+          this.onClick();
+        }
       },
 
       close() {

@@ -39,18 +39,6 @@
         <pre><code></code></pre>
       </example-code>
     </div>
-    <h3>带有标题的类型</h3>
-    <div class="example">
-      <div class="example-demo">
-        <s-alert title="成功提示的文案" type="success" description="文字说明文字说明文字说明文字说明文字说明文字说明"></s-alert>
-      </div>
-      <example-code>
-        <textarea>
-          <s-alert title="成功提示的文案" type="success" description="文字说明文字说明文字说明文字说明文字说明文字说明"></s-alert>
-        </textarea>
-        <pre><code></code></pre>
-      </example-code>
-    </div>
     <h3>props</h3>
     <s-tb>
       <s-tb-i title="title" desc="标题，必选" type="string" value="-" init="-"></s-tb-i>

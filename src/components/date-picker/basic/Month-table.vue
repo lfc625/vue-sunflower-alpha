@@ -49,41 +49,43 @@
 
 <script>
   import Locale from '../../extra/mixins/locale';
+  import { isDate, range, getDayCountOfMonth, nextDate } from '../util';
   import { hasClass } from '../../extra/utils/dom';
+
+  const datesInMonth = (year, month) => {
+    const numOfDays = getDayCountOfMonth(year, month);
+    const firstDay = new Date(year, month, 1);
+    return range(numOfDays).map(n => nextDate(firstDay, n));
+  };
 
   export default {
     props: {
       disabledDate: {},
-      date: {},
-      month: {
-        type: Number
-      }
+      value: {},
+      defaultValue: {
+        validator(val) {
+          // null or valid Date Object
+          return val === null || (val instanceof Date && isDate(val));
+        }
+      },
+      date: {}
     },
     mixins: [Locale],
     methods: {
       getCellStyle(month) {
         const style = {};
-        var year = this.date.getFullYear();
-        var date = new Date(0);
-        date.setFullYear(year);
-        date.setMonth(month);
-        date.setHours(0);
-        var nextMonth = new Date(date);
-        nextMonth.setMonth(month + 1);
-        var flag = false;
-        if (typeof this.disabledDate === 'function') {
-          while (date < nextMonth) {
-            if (this.disabledDate(date)) {
-              date = new Date(date.getTime() + 8.64e7);
-              flag = true;
-            } else {
-              flag = false;
-              break;
-            }
-          }
-        }
-        style.disabled = flag;
-        style.current = this.month === month;
+        const year = this.date.getFullYear();
+        const today = new Date();
+
+        style.disabled = typeof this.disabledDate === 'function'
+          ? datesInMonth(year, month).every(this.disabledDate)
+          : false;
+        style.current = this.value.getFullYear() === year && this.value.getMonth() === month;
+        style.today = today.getFullYear() === year && today.getMonth() === month;
+        style.default = this.defaultValue &&
+          this.defaultValue.getFullYear() === year &&
+          this.defaultValue.getMonth() === month;
+
         return style;
       },
       handleMonthTableClick(event) {

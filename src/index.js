@@ -50,8 +50,8 @@ import LoadingBar from './components/loading-bar'
 import{Timeline, TimelineItem}from "./components/timeline";
 import Spinner from './components/spin'
 
-import './theme-chalk/main'
-import './theme-dark/main'
+import './theme-chalk/index.less'
+import './theme-dark/index.less'
 const components = [
     Alert,
     AutoComplete,

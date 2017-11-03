@@ -2,13 +2,15 @@
   <div class="container">
     <nav>
       <ul class="menu-left">
-        <router-link to="/components/alert" tag="li">Alert <small>警告</small></router-link>
-        <router-link to="/components/audio" tag="li">Audio <small>音频提示</small></router-link>
-        <router-link to="/components/badge" tag="li">Badge <small>标记</small></router-link>
-        <router-link to="/components/box" tag="li">Box <small>盒子布局</small></router-link>
-        <router-link to="/components/breadcrumb" tag="li">Breadcrumb <small>面包屑</small></router-link>
-        <router-link to="/components/button" tag="li">Button <small>按钮</small></router-link>
-        <router-link to="/components/card" tag="li">Card <small>卡片</small></router-link>
+        <router-link to="/components/grid" tag="li">Grid <small>栅格系统★</small></router-link>
+        <router-link to="/components/icon" tag="li">Icon <small>图标系统★</small></router-link>
+        <router-link to="/components/alert" tag="li">Alert <small>警告★</small></router-link>
+        <router-link to="/components/audio" tag="li">Audio <small>音频提示★</small></router-link>
+        <router-link to="/components/badge" tag="li">Badge <small>标记★</small></router-link>
+        <router-link to="/components/box" tag="li">Box <small>盒子布局★</small></router-link>
+        <router-link to="/components/breadcrumb" tag="li">Breadcrumb <small>面包屑★</small></router-link>
+        <router-link to="/components/button" tag="li">Button <small>按钮★</small></router-link>
+        <router-link to="/components/card" tag="li">Card <small>卡片★</small></router-link>
         <router-link to="/components/carousel" tag="li">Carousel <small>走马灯</small></router-link>
         <router-link to="/components/cascader" tag="li">Cascade <small>级联选择器</small></router-link>
         <router-link to="/components/checkbox" tag="li">Checkbox <small>多选框</small></router-link>
@@ -18,10 +20,11 @@
         <router-link to="/components/dialog" tag="li">Dialog <small>对话框</small></router-link>
         <router-link to="/components/dropdown" tag="li">Dropdown <small>下拉菜单</small></router-link>
         <router-link to="/components/form" tag="li">Form <small>表单</small></router-link>
-        <router-link to="/components/grid" tag="li">Grid <small>栅格系统</small></router-link>
         <router-link to="/components/input" tag="li">Input <small>输入框</small></router-link>
         <router-link to="/components/input-number" tag="li">InputNumber <small>计数器</small></router-link>
         <router-link to="/components/loading" tag="li">Loading <small>加载</small></router-link>
+        <router-link to="/components/loading-bar" tag="li">Loading-bar <small>加载进度条</small></router-link>
+        <router-link to="/components/label-input" tag="li">LabelInput <small>带名称的输入框</small></router-link>
         <router-link to="/components/menu" tag="li">Menu <small>导航菜单</small></router-link>
         <router-link to="/components/message" tag="li">Message <small>消息提示</small></router-link>
         <router-link to="/components/message-box" tag="li">MessageBox <small>消息弹框</small></router-link>
@@ -36,6 +39,8 @@
         <router-link to="/components/slider" tag="li">Slider <small>滑块</small></router-link>
         <router-link to="/components/steps" tag="li">Steps <small>步骤条</small></router-link>
         <router-link to="/components/switch" tag="li">Switch <small>开关</small></router-link>
+        <router-link to="/components/select" tag="li">Select <small>下拉选项框</small></router-link>
+        <router-link to="/components/spin" tag="li">Spin <small>加载等待</small></router-link>
         <router-link to="/components/table" tag="li">Table <small>表格</small></router-link>
         <router-link to="/components/tabs" tag="li">Tabs <small>标签页</small></router-link>
         <router-link to="/components/tag" tag="li">Tag <small>标签</small></router-link>
@@ -43,13 +48,8 @@
         <router-link to="/components/time-select" tag="li">TimeSelect <small>时间选择器(下拉框形式)</small></router-link>
         <router-link to="/components/tooltip" tag="li">Tooltip <small>文字悬浮提示框</small></router-link>
         <router-link to="/components/tree" tag="li">Tree <small>树形控件</small></router-link>
-        <router-link to="/components/label-input" tag="li">LabelInput <small>带名称的输入框</small></router-link>
-        <router-link to="/components/upload" tag="li">Upload <small>上传</small></router-link>
-        <router-link to="/components/select" tag="li">Select <small>下拉选项框</small></router-link>
-        <router-link to="/components/icon" tag="li">Icon <small>图标系统</small></router-link>
-        <router-link to="/components/loading-bar" tag="li">Loading-bar <small>加载进度条</small></router-link>
         <router-link to="/components/timeline" tag="li">Timeline <small>时间轴</small></router-link>
-        <router-link to="/components/spin" tag="li">Spin <small>加载等待</small></router-link>
+        <router-link to="/components/upload" tag="li">Upload <small>上传</small></router-link>
       </ul>
     </nav>
     <main class="main">

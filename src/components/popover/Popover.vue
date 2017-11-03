@@ -21,12 +21,18 @@
 
   export default {
     name: 's-popover',
+
     mixins: [Popper],
+
     props: {
       trigger: {
         type: String,
         default: 'click',
         validator: value => ['click', 'focus', 'hover', 'manual'].indexOf(value) > -1
+      },
+      openDelay: {
+        type: Number,
+        default: 0
       },
       title: String,
       disabled: Boolean,
@@ -42,14 +48,23 @@
         default: 'fade-in-linear'
       }
     },
+
     watch: {
       showPopper(newVal, oldVal) {
         newVal ? this.$emit('show') : this.$emit('hide');
+      },
+      '$refs.reference': {
+        deep: true,
+        handler(val) {
+          console.log(val);
+        }
       }
     },
+
     mounted() {
       let reference = this.reference || this.$refs.reference;
       const popper = this.popper || this.$refs.popper;
+
       if (!reference && this.$slots.reference && this.$slots.reference[0]) {
         reference = this.referenceElm = this.$slots.reference[0].elm;
       }
@@ -63,6 +78,7 @@
         on(popper, 'mouseleave', this.handleMouseLeave);
       } else if (this.trigger === 'focus') {
         let found = false;
+
         if ([].slice.call(reference.children).length) {
           const children = reference.childNodes;
           const len = children.length;
@@ -87,6 +103,7 @@
         }
       }
     },
+
     methods: {
       doToggle() {
         this.showPopper = !this.showPopper;
@@ -98,10 +115,17 @@
         this.showPopper = false;
       },
       handleMouseEnter() {
-        this.showPopper = true;
         clearTimeout(this._timer);
+        if (this.openDelay) {
+          this._timer = setTimeout(() => {
+            this.showPopper = true;
+          }, this.openDelay);
+        } else {
+          this.showPopper = true;
+        }
       },
       handleMouseLeave() {
+        clearTimeout(this._timer);
         this._timer = setTimeout(() => {
           this.showPopper = false;
         }, 200);
@@ -109,6 +133,7 @@
       handleDocumentClick(e) {
         let reference = this.reference || this.$refs.reference;
         const popper = this.popper || this.$refs.popper;
+
         if (!reference && this.$slots.reference && this.$slots.reference[0]) {
           reference = this.referenceElm = this.$slots.reference[0].elm;
         }
@@ -121,8 +146,10 @@
         this.showPopper = false;
       }
     },
+
     destroyed() {
       const reference = this.reference;
+
       off(reference, 'click', this.doToggle);
       off(reference, 'mouseup', this.doClose);
       off(reference, 'mousedown', this.doShow);
@@ -148,7 +175,8 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 0 6px 0 rgba(0,0,0,.04)
   }
 
-  .s-popover .popper-arrow,.s-popover .popper-arrow:after {
+  .s-popover .popper-arrow,
+  .s-popover .popper-arrow:after {
     position: absolute;
     display: block;
     width: 0;
@@ -219,7 +247,7 @@
   .s-popover[x-placement^=right] .popper-arrow:after {
     bottom: -6px;
     left: 1px;
-    border-right-color: #fff;
+    border-right-color: #000a17;
     border-left-width: 0
   }
 
@@ -249,5 +277,4 @@
     line-height: 1;
     margin-bottom: 9px
   }
-
 </style>

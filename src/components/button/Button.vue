@@ -49,8 +49,6 @@
       },
       disabled: Boolean,
       loading: Boolean,
-      loading: Boolean,
-      disabled: Boolean,
       plain: Boolean,
       autofocus: Boolean,
       round: Boolean,

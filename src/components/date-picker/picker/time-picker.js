@@ -8,7 +8,8 @@ export default {
   name: 'STimePicker',
 
   props: {
-    isRange: Boolean
+    isRange: Boolean,
+    arrowControl: Boolean
   },
 
   data() {

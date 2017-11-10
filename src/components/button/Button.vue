@@ -25,7 +25,7 @@
 <script>
   // 添加type类型，transparent(无边框，无背景)
   export default {
-    name: "s-button",
+    name: "SButton",
 
     inject: {
       elFormItem: {

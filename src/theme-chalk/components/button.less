@@ -5,60 +5,49 @@
   text-align: center;
   cursor: pointer;
   box-sizing: border-box;
-  padding: 8px 18px;
+  padding: 8px 12px;
   margin: 0;
-  font-size: 12px;
+  font-size: @font-size-base;
   border-radius: 2px;
   outline: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   position: relative;
 }
 .s-button.is-disabled, .s-button.is-disabled:hover, .s-button.is-disabled:active {
-  color: #677383;
-  border: 1px solid #344458;
-  background: rgba(33, 44, 61, 0.6);
+  color: @btn-disabled-word;
+  border: 1px solid @btn-disabled-border;
+  background: @btn-disabled-bg;
   cursor: not-allowed;
   opacity: 1;
 }
 .s-button-default {
-  color: #dee9f3;
-  background: #053b66;
-  border: 1px solid #125f9f;
+  color: @btn-default-word;
+  background: @btn-default-bg;
+  border: 1px solid @btn-default-border;
 }
 .s-button-default:hover {
-  border: 1px solid #04a1e9;
-  background: #0070b2;
+  border: 1px solid @btn-hover;
+  background: @btn-default-border;
 }
 .s-button-default:active {
-  opacity: 0.8;
+  border: 1px solid @btn-default-bg;
+  background: @btn-default-bg;
 }
 .s-button-cancel {
-  color: #8997a3;
-  border: 1px solid #125f9f;
-  background: rgba(5, 59, 102, 0.49);
+  color: @btn-default-border;
+  border: 1px solid @btn-default-border;
+  background: @btn-cancel-bg;
 }
 .s-button-cancel:hover {
-  background: #002847;
+  color: @btn-hover;
+  background: @btn-default-bg;
 }
 .s-button-cancel:active {
-  background: #011f37;
+  border: 1px solid @btn-default-bg;
+  background: @btn-default-bg;
 }
-.s-button-icon-only {
-  padding: 5px 10px;
-}
-.s-button-icon-only .iconfont {
-  font-size: 18px;
-}
-.s-button-icon {
-  padding: 7px 14px;
-}
-.s-button-icon .iconfont {
+.s-button .iconfont {
   font-size: 14px;
 }
 .s-button-icon span {
@@ -131,4 +120,104 @@
 .s-button-normal.s-button-icon-only .iconfont {
   font-size: 18px;
   vertical-align: middle;
+}
+ .s-button-group {
+   display: inline-block;
+   vertical-align: middle
+ }
+
+.s-button-group .s-button-primary:first-child {
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-primary:last-child {
+  border-left-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-primary:not(:first-child):not(:last-child) {
+  border-left-color: hsla(0,0%,100%,.5);
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-success:first-child {
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-success:last-child {
+  border-left-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-success:not(:first-child):not(:last-child) {
+  border-left-color: hsla(0,0%,100%,.5);
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-warning:first-child {
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-warning:last-child {
+  border-left-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-warning:not(:first-child):not(:last-child) {
+  border-left-color: hsla(0,0%,100%,.5);
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-danger:first-child {
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-danger:last-child {
+  border-left-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-danger:not(:first-child):not(:last-child) {
+  border-left-color: hsla(0,0%,100%,.5);
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-info:first-child {
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-info:last-child {
+  border-left-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button-info:not(:first-child):not(:last-child) {
+  border-left-color: hsla(0,0%,100%,.5);
+  border-right-color: hsla(0,0%,100%,.5)
+}
+
+.s-button-group .s-button {
+  float: left;
+  position: relative
+}
+
+.s-button-group .s-button+.s-button {
+  margin-left: 0
+}
+
+.s-button-group .s-button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+.s-button-group .s-button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0
+}
+
+.s-button-group .s-button:not(:first-child):not(:last-child) {
+  border-radius: 0
+}
+
+.s-button-group .s-button:not(:last-child) {
+  margin-right: -1px
+}
+
+.s-button-group .s-button.is-active,.s-button-group .s-button:active,.s-button-group .s-button:focus,.s-button-group .s-button:hover {
+  z-index: 1
 }

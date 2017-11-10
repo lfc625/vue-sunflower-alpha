@@ -27,20 +27,29 @@
       this.$nextTick(() => {
         let mainTheme = localStorage.getItem('theme') || 'theme-dark'
         let themeLink = document.querySelector('link[name="theme"]');
-        let path = 'a/b/' + mainTheme + '.css';
+        let path = themeLink.getAttribute('href');
+        let idx = path.lastIndexOf('\/');
+        let targetStr = path.substring(idx + 1, path.length - 4);
+        let newStr = path.replace(targetStr, mainTheme)
+        themeLink.setAttribute('href', newStr);
         mainTheme === 'theme-dark' ? this.themeValue = true : this.themeValue = false
-        themeLink.setAttribute('href', path);
       })
     },
     methods: {
       setTheme() {
         this.$nextTick(() => {
           let mainTheme = this.themeValue ? 'theme-dark' : 'theme-chalk'
-          let themeLink = document.querySelector('link[name="theme"]');
-          let path = 'a/b/' + mainTheme + '.css';
-          themeLink.setAttribute('href', path);
+          this.changePath(mainTheme)
           localStorage.setItem('theme',mainTheme)
         })
+      },
+      changePath(str) {
+        let themeLink = document.querySelector('link[name="theme"]');
+        let path = themeLink.getAttribute('href');
+        let idx = path.lastIndexOf('\/');
+        let targetStr = path.substring(idx + 1, path.length - 4);
+        let newStr = path.replace(targetStr, str)
+        themeLink.setAttribute('href', newStr);
       }
     }
   }

@@ -88,9 +88,3 @@
     }
   };
 </script>
-<style>
-    .s-loading-bar{width:100%;position:fixed;top:0;left:0;right:0;z-index:2000}
-    .s-loading-bar-inner{transition:width .2s linear}
-    .s-loading-bar-inner-color-primary{background-color:#00f1fb;box-shadow: 0 0 20px #31addd;}
-    .s-loading-bar-inner-failed-color-error{background-color:#ed3f14}
-</style>

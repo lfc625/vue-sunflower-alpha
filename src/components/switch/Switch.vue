@@ -1,51 +1,48 @@
 <template>
-  <label class="s-switch"
-         :class="{
+  <div class="s-switch"
+         :class="[{
             'is-disabled': disabled,
-            'is-checked': checked,
-            's-switch-wide': hasText
-         }">
-    <input class="s-switch-input"
+            'is-checked': checked
+         }]"
+         role="switch"
+         :aria-checked="checked"
+         :aria-disabled="disabled"
+         @click="switchValue">
+    <input class="s-switch__input"
            type="checkbox"
            ref="input"
+           :name="name"
            @change="handleChange"
-           :true-value="onValue"
-           :false-value="offValue"
-           :disabled="disabled" />
-    <span class="s-switch-core" ref="core" :style="{'width': coreWidth + 'px'}">
-      <span class="s-switch-button" ref="ball" :style="{ transform }"></span>
+           :true-value="activeValue"
+           :false-value="inactiveValue"
+           :disabled="disabled"
+           @keydown.enter="switchValue"/>
+    <span
+            :class="['s-switch__label', 's-switch__label--left', !checked ? 'is-active' : '']"
+            v-if="inactiveIconClass || inactiveText">
+      <i :class="[inactiveIconClass]" v-if="inactiveIconClass"></i>
+      <span v-if="!inactiveIconClass && inactiveText" :aria-hidden="checked">{{ inactiveText }}</span>
     </span>
-    <transition name="label-fade">
-      <div class="s-switch-label s-switch-label-left"
-           v-show="checked"
-           :style="{ 'width': coreWidth + 'px' }">
-        <i :class="[onIconClass]" v-if="onIconClass"></i>
-        <span v-if="!onIconClass && onText">{{ onText }}</span>
-      </div>
-    </transition>
-    <transition name="label-fade">
-      <div class="s-switch-label s-switch-label-right"
-           v-show="!checked" :style="{ 'width': coreWidth + 'px' }">
-        <i :class="[offIconClass]" v-if="offIconClass"></i>
-        <span v-if="!offIconClass && offText">{{ offText }}</span>
-      </div>
-    </transition>
-  </label>
+    <span class="s-switch__core" ref="core" :style="[{ 'width': coreWidth + 'px' }]">
+      <span class="s-switch__button" :style="{ transform }"></span>
+    </span>
+    <span
+            :class="['s-switch__label', 's-switch__label--right', checked ? 'is-active' : '']"
+            v-if="activeIconClass || activeText">
+      <i :class="[activeIconClass]" v-if="activeIconClass"></i>
+      <span v-if="!activeIconClass && activeText" :aria-hidden="!checked">{{ activeText }}</span>
+    </span>
+  </div>
 </template>
 
 <script>
+  import Focus from '../extra/mixins/focus';
+  import Migrating from '../extra/mixins/migrating';
   export default {
-    name: 's-switch',
+    name: 'SSwitch',
+    mixins: [Focus('input'), Migrating],
     props: {
       value: {
-        type: [Boolean, String, Number],
-        default: true
-      },
-      onValue: {
-        type: [Boolean, String, Number],
-        default: true
-      },
-      offValue: {
         type: [Boolean, String, Number],
         default: false
       },
@@ -53,35 +50,37 @@
         type: Boolean,
         default: false
       },
-      onText: {
-        type: String,
-        default: ''
-      },
-      offText: {
-        type: String,
-        default: ''
-      },
       width: {
-        default: Number,
+        type: Number,
         default: 0
       },
-      onIconClass: {
+      activeIconClass: {
         type: String,
         default: ''
       },
-      offIconClass: {
+      inactiveIconClass: {
         type: String,
         default: ''
       },
-      onColor: {
+      activeText: String,
+      inactiveText: String,
+      activeColor: {
         type: String,
         default: ''
       },
-      offColor: {
+      inactiveColor: {
         type: String,
         default: ''
       },
-      ballColor: {
+      activeValue: {
+        type: [Boolean, String, Number],
+        default: true
+      },
+      inactiveValue: {
+        type: [Boolean, String, Number],
+        default: false
+      },
+      name: {
         type: String,
         default: ''
       }
@@ -91,148 +90,66 @@
         coreWidth: this.width
       }
     },
+    created() {
+      if (!~[this.activeValue, this.inactiveValue].indexOf(this.value)) {
+        this.$emit('input', this.inactiveValue);
+      }
+    },
     computed: {
       checked() {
-        return this.value === this.onValue;
-      },
-      hasText() {
-        return Boolean(this.onText || this.offText);
+        return this.value === this.activeValue;
       },
       transform() {
-        return this.checked ? 'translate(' + (this.coreWidth - 20) + 'px, 2px)' : 'translate(2px, 2px)';
+        return this.checked ? `translate3d(${ this.coreWidth - 18 }px, 0, 0)` : '';
       }
     },
     methods: {
-      handleChange() {
-        this.$emit('change', this.checked ? this.offValue : this.onValue);
-        this.$emit('input', this.checked ? this.offValue : this.onValue);
+      handleChange(event) {
+        this.$emit('input', !this.checked ? this.activeValue : this.inactiveValue);
+        this.$emit('change', !this.checked ? this.activeValue : this.inactiveValue);
         this.$nextTick(() => {
+          // set input's checked property
+          // in case parent refuses to change component's value
           this.$refs.input.checked = this.checked;
         });
       },
       setBackgroundColor() {
-        let newColor = this.checked ? this.onColor : this.offColor;
+        let newColor = this.checked ? this.activeColor : this.inactiveColor;
         this.$refs.core.style.borderColor = newColor;
         this.$refs.core.style.backgroundColor = newColor;
       },
-      setBallColor() {
-        this.$refs.ball.style.backgroundColor = this.ballColor;
+      switchValue() {
+        this.$refs.input.click();
+      },
+      getMigratingConfig() {
+        return {
+          props: {
+            'on-color': 'on-color is renamed to active-color.',
+            'off-color': 'off-color is renamed to inactive-color.',
+            'on-text': 'on-text is renamed to active-text.',
+            'off-text': 'off-text is renamed to inactive-text.',
+            'on-value': 'on-value is renamed to active-value.',
+            'off-value': 'off-value is renamed to inactive-value.',
+            'on-icon-class': 'on-icon-class is renamed to active-icon-class.',
+            'off-icon-class': 'off-icon-class is renamed to inactive-icon-class.'
+          }
+        };
       }
     },
     watch: {
       checked() {
-        if (this.onColor || this.offColor) {
+        this.$refs.input.checked = this.checked;
+        if (this.activeColor || this.inactiveColor) {
           this.setBackgroundColor();
         }
       }
     },
-    created() {
-      if (!~[this.onValue, this.offValue].indexOf(this.value)) {
-        this.$emit('input', this.offValue);
-      }
-    },
     mounted() {
-      if (this.width === 0) {
-        this.coreWidth = this.hasText ? 58 : 46;
-      }
-      if (this.onColor || this.offColor) {
+      this.coreWidth = this.width || 36;
+      if (this.activeColor || this.inactiveColor) {
         this.setBackgroundColor();
-      }
-      if (this.ballColor) {
-        this.setBallColor();
       }
       this.$refs.input.checked = this.checked;
     }
   }
 </script>
-
-<style>
-  .s-switch {
-    display: inline-block;
-    position: relative;
-    font-size: 14px;
-    line-height: 22px;
-    height: 22px;
-    vertical-align: middle;
-  }
-  .s-switch .label-fade-enter,
-  .s-switch .label-fade-leave-active {
-    opacity: 0;
-  }
-  .s-switch.is-disabled .s-switch-core {
-    border-color: #344458 !important;
-    background: #1f2938 !important;
-  }
-  .s-switch.is-disabled .s-switch-core .s-switch-button {
-    background-color: #2c394b !important;
-  }
-  .s-switch.is-disabled .s-switch-core,
-  .s-switch.is-disabled .s-switch-label {
-    cursor: not-allowed;
-  }
-  .s-switch.is-checked .s-switch-core {
-    border-color: #115c9b;
-    background-color: transparent;
-  }
-  .s-switch.is-checked .s-switch-core .s-switch-button {
-    background-color: #115c9b;
-  }
-  .s-switch-label {
-    transition: .2s;
-    width: 46px;
-    height: 22px;
-    left: 0;
-    top: 0;
-    cursor: pointer;
-  }
-  .s-switch-label,
-  .s-switch-label * {
-    position: absolute;
-    display: inline-block;
-    font-size: 14px;
-  }
-  .s-switch-label * {
-    line-height: 1;
-    top: 4px;
-    color: #fff;
-  }
-  .s-switch-label-left i {
-    left: 6px;
-  }
-  .s-switch-label-right i {
-    right: 6px;
-  }
-  .s-switch-input {
-    display: none;
-  }
-  .s-switch-core {
-    margin: 0;
-    display: inline-block;
-    position: relative;
-    width: 46px;
-    height: 22px;
-    border: 1px solid #344458;
-    outline: none;
-    border-radius: 12px;
-    box-sizing: border-box;
-    background: transparent;
-    cursor: pointer;
-    transition: border-color .3s,background-color .3s;
-  }
-  .s-switch-core .s-switch-button {
-    top: 0;
-    left: 0;
-    position: absolute;
-    border-radius: 100%;
-    transition: transform .3s;
-    width: 16px;
-    height: 16px;
-    background-color: #44576e;
-  }
-  .s-switch-wide .s-switch-label.s-switch-label-left span {
-    left: 10px;
-  }
-  .s-switch-wide .s-switch-label.s-switch-label-right span {
-    right: 10px;
-  }
-</style>

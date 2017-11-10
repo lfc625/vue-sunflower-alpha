@@ -69,7 +69,6 @@ const router = new VueRouter({
         { path: "tooltip", component: require("./Tooltip") },
         { path: "tree", component: require("./Tree") },
         { path:"select",component:require("./Select")},
-        { path:"label-input",component:require("./LabelInput.vue")},
         { path:"upload",component:require("./Upload")},
         { path:"icon",component:require("./Icon")},
         { path:"loading-bar",component:require("./LoadingBar")},

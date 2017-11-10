@@ -6,19 +6,25 @@
     <div class="example">
       <div class="example-demo">
         <s-progress :percentage="0"></s-progress>
-        <s-progress :percentage="70"></s-progress>
+        <s-progress :percentage="20"></s-progress>
+        <s-progress :percentage="60" status="warning"></s-progress>
+        <s-progress :percentage="80" status="error"></s-progress>
+        <s-progress :percentage="90" status="disabled"></s-progress>
         <s-progress :percentage="100" status="success"></s-progress>
-        <s-progress :percentage="50" status="exception"></s-progress>
       </div>
       <example-code>
-        <div class="description"><p>Progress 组件设置<code>percentage</code>属性即可，表示进度条对应的百分比，<strong>必填</strong>，必须在 0-100。
-        </p></div>
-        <pre><code>
-&lt;s-progress :percentage="0"&gt;&lt;/s-progress&gt;
-&lt;s-progress :percentage="70"&gt;&lt;/s-progress&gt;
-&lt;s-progress :percentage="100" status="success"&gt;&lt;/s-progress&gt;
-&lt;s-progress :percentage="50" status="exception"&gt;&lt;/s-progress&gt;
-            </code></pre>
+        <textarea>
+          <s-progress :percentage="0"></s-progress>
+          <s-progress :percentage="20"></s-progress>
+          <s-progress :percentage="60" status="warning"></s-progress>
+          <s-progress :percentage="80" status="error"></s-progress>
+          <s-progress :percentage="90" status="disabled"></s-progress>
+          <s-progress :percentage="100" status="success"></s-progress>
+        </textarea>
+        <div class="description">
+          <p>Progress 组件设置<code>percentage</code>属性即可，表示进度条对应的百分比，<strong>必填</strong>，必须在 0-100。</p>
+        </div>
+        <pre><code></code></pre>
       </example-code>
     </div>
 
@@ -26,20 +32,27 @@
     <p>百分比不占用额外控件，适用于文件上传等场景。</p>
     <div class="example">
       <div class="example-demo">
-        <s-progress :text-inside="true" :stroke-width="18" :percentage="0"></s-progress>
-        <s-progress :text-inside="true" :stroke-width="18" :percentage="70"></s-progress>
-        <s-progress :text-inside="true" :stroke-width="18" :percentage="100" status="success"></s-progress>
-        <s-progress :text-inside="true" :stroke-width="18" :percentage="50" status="exception"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="22" :percentage="0"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="92" :percentage="70"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="22" :percentage="60" status="warning"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="52" :percentage="80" status="error"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="22" :percentage="90" status="disabled"></s-progress>
+        <s-progress :text-inside="true" :stroke-width="22" :percentage="100" status="success"></s-progress>
       </div>
       <example-code>
-        <div class="description"><p>Progress 组件可通过 <code>stroke-width</code> 属性更改进度条的高度，并可通过 <code>text-inside</code>
-          属性来将进度条描述置于进度条内部。</p></div>
-        <pre><code>
-&lt;s-progress :text-inside="true" :stroke-width="18" :percentage="0"&gt;&lt;/s-progress&gt;
-&lt;s-progress :text-inside="true" :stroke-width="18" :percentage="70"&gt;&lt;/s-progress&gt;
-&lt;s-progress :text-inside="true" :stroke-width="18" :percentage="100" status="success"&gt;&lt;/s-progress&gt;
-&lt;s-progress :text-inside="true" :stroke-width="18" :percentage="50" status="exception"&gt;&lt;/s-progress&gt;
-          </code></pre>
+        <textarea>
+          <s-progress :text-inside="true" :stroke-width="22" :percentage="0"></s-progress>
+          <s-progress :text-inside="true" :stroke-width="92" :percentage="70"></s-progress>
+          <s-progress :text-inside="true" :stroke-width="22" :percentage="60" status="warning"></s-progress>
+          <s-progress :text-inside="true" :stroke-width="52" :percentage="80" status="error"></s-progress>
+          <s-progress :text-inside="true" :stroke-width="22" :percentage="90" status="disabled"></s-progress>
+          <s-progress :text-inside="true" :stroke-width="22" :percentage="100" status="success"></s-progress>
+        </textarea>
+        <div class="description">
+          <p>Progress 组件可通过 <code>stroke-width</code> 属性更改进度条的高度，并可通过 <code>text-inside</code>
+          属性来将进度条描述置于进度条内部。</p>
+        </div>
+        <pre><code></code></pre>
       </example-code>
     </div>
 
@@ -48,18 +61,23 @@
       <div class="example-demo">
         <s-progress type="circle" :percentage="0"></s-progress>
         <s-progress type="circle" :percentage="25"></s-progress>
+        <s-progress type="circle" :percentage="50" status="warning"></s-progress>
+        <s-progress type="circle" :percentage="57" status="error"></s-progress>
+        <s-progress type="circle" :percentage="85" status="disabled"></s-progress>
         <s-progress type="circle" :percentage="100" status="success"></s-progress>
-        <s-progress type="circle" :percentage="50" status="exception"></s-progress>
       </div>
       <example-code>
+        <textarea>
+          <s-progress type="circle" :percentage="0"></s-progress>
+          <s-progress type="circle" :percentage="25"></s-progress>
+          <s-progress type="circle" :percentage="50" status="warning"></s-progress>
+          <s-progress type="circle" :percentage="57" status="error"></s-progress>
+          <s-progress type="circle" :percentage="85" status="disabled"></s-progress>
+          <s-progress type="circle" :percentage="100" status="success"></s-progress>
+        </textarea>
         <div class="description"><p>Progress 组件可通过 <code>type</code> 属性来指定使用环形进度条，在环形进度条中，还可以通过 <code>width</code>
           属性来设置其大小。</p></div>
-        <pre><code>
-&lt;s-progress type="circle" :percentage="0"&gt;&lt;/s-progress&gt;
-&lt;s-progress type="circle" :percentage="25"&gt;&lt;/s-progress&gt;
-&lt;s-progress type="circle" :percentage="100" status="success"&gt;>&lt;/s-progress&gt;
-&lt;s-progress type="circle" :percentage="50" status="exception"&gt;&lt;/s-progress&gt;
-          </code></pre>
+        <pre><code></code></pre>
       </example-code>
     </div>
 
@@ -94,7 +112,7 @@
         <td>进度条的宽度，单位 px</td>
         <td>number</td>
         <td>—</td>
-        <td>6</td>
+        <td>16</td>
       </tr>
       <tr>
         <td>text-inside</td>
@@ -107,7 +125,7 @@
         <td>status</td>
         <td>进度条当前状态</td>
         <td>string</td>
-        <td>success/exception</td>
+        <td>warning/error/success/disabled</td>
         <td>—</td>
       </tr>
       <tr>

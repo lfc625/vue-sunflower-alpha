@@ -10,7 +10,7 @@ import {Carousel, CarouselItem} from "./components/carousel";
 import Cascader from "./components/cascader";
 import Chart from "./components/chart";
 import Charts from "./components/charts";
-import {Checkbox, CheckboxGroup} from "./components/checkbox";
+import {Checkbox, CheckboxGroup, CheckboxButton} from "./components/checkbox";
 import {Col, Row} from "./components/grid";
 import {Collapse, CollapseItem} from "./components/collapse";
 import {DatePicker, TimePicker, TimeSelect} from "./components/date-picker";
@@ -42,7 +42,6 @@ import {Tabs, TabPane} from "./components/tabs";
 import Tag from "./components/tag";
 import Tooltip from "./components/tooltip";
 import Tree from "./components/tree";
-import LabelInput from "./components/label-input";
 import{Option, OptionGroup, Select, SelectDropdown}from "./components/select";
 import Upload from "./components/upload";
 import TableTree from './components/table-tree'
@@ -69,6 +68,7 @@ const components = [
     Charts,
     Checkbox,
     CheckboxGroup,
+    CheckboxButton,
     Col,
     Collapse,
     CollapseItem,
@@ -113,7 +113,6 @@ const components = [
     TimeSelect,
     Tooltip,
     Tree,
-    LabelInput,
     Option,
     OptionGroup,
     Select,
@@ -174,6 +173,7 @@ export default {
   Charts,
   Checkbox,
   CheckboxGroup,
+  CheckboxButton,
   Col,
   Collapse,
   CollapseItem,
@@ -219,7 +219,6 @@ export default {
   TimeSelect,
   Tooltip,
   Tree,
-  LabelInput,
   Option,
   OptionGroup,
   Select,

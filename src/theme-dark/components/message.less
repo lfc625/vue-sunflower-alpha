@@ -1,0 +1,86 @@
+.s-message {
+  min-width: 300px;
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  border-radius: 3px;
+  transform: translateX(-50%);
+  transition: opacity .3s, transform .4s;
+  box-shadow: @msg-box-shadow;
+  > div {
+    min-width: 300px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: @msg-normal-text;
+    overflow: hidden;
+  }
+}
+
+/*
+ .s-message.s-message-info {
+   border: solid 1px rgba(0, 147, 231, 0.749);
+   background-color: rgba(5, 90, 170, 0.749);
+ }
+
+ .s-message.s-message-warning {
+   border: solid 1px rgba(241, 116, 8, 0.749);
+   background-color: rgba(173, 81, 0, 0.749);
+ }
+
+ .s-message.s-message-success {
+   border: solid 1px rgba(0, 195, 0, 0.749);
+   background-color: rgba(0, 134, 0, 0.749);
+ }
+
+ .s-message.s-message-error {
+   border: solid 1px rgba(210, 3, 0, 0.749);
+   background-color: rgba(153, 1, 0, 0.749);
+ }
+*/
+
+.s-message-group {
+  margin-left: 50px;
+  position: relative;
+  height: 20px;
+  line-height: 20px;
+  p {
+    font-size: 14px;
+    margin: 0 34px 0 0;
+    white-space: nowrap;
+    color: @msg-box-shadow;
+    text-align: justify;
+  }
+  &.is-with-icon {
+    margin-left: 0;
+  }
+}
+
+.s-message-img {
+  width: 51px;
+  height: 42px;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  z-index: 100;
+}
+
+.s-message-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.s-message-closeBtn {
+  top: 0;
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+  color: @msg-box-shadow;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.s-message-fade-enter, .s-message-fade-leave-active {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

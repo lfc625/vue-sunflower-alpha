@@ -53,7 +53,7 @@ function getColorList (xdata) {
         colorList.push('#4e545a')
         break
       case '严重':
-        colorList.push('#ac0c25')
+        colorList.push('#5a0715')
         break
       case '主要':
         colorList.push('#ac0c25')
@@ -1076,10 +1076,11 @@ echart.colorfulBarChart = function (el, data, config) {
   var option = {
     color: colorList,
     tooltip: {
-      trigger: 'axis',
+      trigger: 'item',
       axisPointer: {
         type: 'shadow'
-      }
+      },
+      formatter: '{b}: {c}'
     },
     legend: {
       x: 'right',
@@ -1113,10 +1114,11 @@ echart.colorfulBarVeerChart = function (el, data, config) {
   var option = {
     color: colorList,
     tooltip: {
-      trigger: 'axis',
+      trigger: 'item',
       axisPointer: {
         type: 'shadow'
-      }
+      },
+      formatter: '{b}: {c}'
     },
     legend: {
       x: 'right',
@@ -1482,9 +1484,22 @@ function getMultiLineChartSeries (legend, seriesData) {
   }
   return series
 }
+function multilineRelation(fData, relation) {
+  console.log(fData);
+  for (let i = 0; i < fData.legend.length; i++) {
+    fData.legend[i] = relation[fData.legend[i]];
+  }
+  for (let o in relation) {
+    fData.seriesData[relation[o]] = fData.seriesData[o];
+  }
+  return fData;
+}
 echart.multilineChart = function (el, data, config) {
   var aData = data.data || data
   var fData = filterMultiChartData(aData, 'date')
+  if (data.relation) {
+    fData = multilineRelation(fData, data.relation);
+  }
   var option = {
     tooltip: {
       trigger: 'axis'
@@ -1506,7 +1521,6 @@ echart.multilineChart = function (el, data, config) {
     }],
     series: getMultiLineChartSeries(fData.legend, fData.seriesData)
   }
-
   if (typeof config !== 'undefined') {
     return createChart(el, merge({}, option, config))
   } else {

@@ -13,8 +13,7 @@
           <span class="demonstration">区分颜色</span>
           <s-rate
                   v-model="value2"
-                  :colors="['#99A9BF', '#02b4e6', '#02b4e6']"
-
+                  :colors="['#100cbf', '#e6d801', '#e60e2b']"
           >
           </s-rate>
         </div>
@@ -80,7 +79,7 @@
                 v-model="value5"
                 disabled
                 show-text
-                text-color="#02b4e6"
+                text-color="#ffc001"
                 text-template="{value}">
         </s-rate>
       </div>

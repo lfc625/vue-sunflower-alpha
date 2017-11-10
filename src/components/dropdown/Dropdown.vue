@@ -4,9 +4,20 @@
     v-clickoutside="handleClose"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave">
-    <div :class="[prefixCls + '-rel']" ref="reference" @click="handleClick"><slot></slot></div>
+    <div :class="[prefixCls + '-rel']" ref="reference" @click="handleClick">
+      <div v-if="showDefaultTitle" class="s-dropdown-defaultTitle">
+        <span class="s-dropdown-defaultTitle-text">批量操作</span>
+        <span class="s-dropdown-defaultTitle-icon">
+          <i class='iconfont icon-bottom'
+            :class="{'s-dropdown-expand':currentVisible}"></i>
+        </span>
+      </div>
+      <slot></slot>
+    </div>
     <transition :name="transition">
-      <Drop v-show="currentVisible" :placement="placement" ref="drop"><slot name="list"></slot></Drop>
+      <Drop v-show="currentVisible" :placement="placement" ref="drop">
+        <slot name="list"></slot>
+      </Drop>
     </transition>
   </div>
 </template>
@@ -41,6 +52,9 @@
     computed: {
       transition () {
         return ['bottom-start', 'bottom', 'bottom-end'].indexOf(this.placement) > -1 ? 'slide-up' : 'fade';
+      },
+      showDefaultTitle () {
+        return this.$slots.hasOwnProperty('default') ? false : true
       }
     },
     data () {
@@ -137,76 +151,3 @@
     }
   };
 </script>
-
-<style >
-.s-dropdown{
-  width: 100%;
-}
-.s-dropdown-item{
-  transition: background .2s ease-in-out;
-  list-style: none;
-  clear: both;
-  white-space: nowrap
-}
-.s-dropdown{
-  display: inline
-}
-.s-dropdown-rel{
-  display: inline-block;
-}
-.s-dropdown .s-select-dropdown {
-  overflow: visible;
-  max-height: none;
-  border:1px solid #206da9;
-  background-color: #002847;
-}
-.s-dropdown-rel {
-  position: relative
-}
-
-.s-dropdown-menu {
-  min-width: 102px;
-  padding-left: 0;
-}
-
-.s-dropdown-item {
-  margin: 0;
-  padding: 8px 16px;
-  color: #dee9f3;
-  font-size: 12px!important;
-  cursor: pointer;
-}
-.s-dropdown-menu>.s-dropdown-item:not(:last-child){
-  border-bottom: 1px solid #1f6daa;
-}
-.s-dropdown+.s-dropdown-item{
-  border-top: 1px solid #1f6daa;
-}
-.s-dropdown-item .icon-right{
-  color:#dee9f3;
-}
-.s-dropdown-item-focus,.s-dropdown-item:hover {
-  background: #0070b2;
-}
-
-.s-dropdown-item-disabled {
-  background: #1f3951;
-  color: #677383;
-  cursor: not-allowed
-}
-
-.s-dropdown-item-selected,.s-dropdown-item-selected:hover {
-  color: #fff;
-  background: rgba(51,153,255,.9)
-}
-
-.s-dropdown-item-selected.s-dropdown-item-focus {
-  background: rgba(45,135,225,.91)
-}
-
-.s-dropdown-large .s-dropdown-item {
-  padding: 7px 16px 8px;
-  font-size: 14px!important
-}
-
-</style>

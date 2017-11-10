@@ -1,5 +1,7 @@
 <template>
-  <div class="s-select-dropdown" :style="styles"><slot></slot></div>
+  <div class="s-select-dropdown" :style="styles">
+    <slot></slot>
+  </div>
 </template>
 <script>
   import { getStyle } from '../extra/utils/assist';
@@ -77,6 +79,3 @@
     }
   };
 </script>
-<style>
-
-</style>

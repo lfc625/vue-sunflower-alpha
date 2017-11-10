@@ -1,0 +1,110 @@
+.s-tree {
+  cursor: default;
+  background-color: @tree-background;
+}
+
+.s-tree-empty-block {
+  position: relative;
+  min-height: 60px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.s-tree-empty-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: @tree-label-color;
+}
+
+.s-tree-node {
+  white-space: nowrap;
+  > .s-tree-node-children {
+    overflow: hidden;
+    background-color: transparent;
+  }
+  &.is-expanded > .s-tree-node-children {
+    display: block;
+  }
+}
+
+.s-tree-node-content {
+  box-sizing: border-box;
+  line-height: 36px;
+  height: 36px;
+  padding-right: 1px;
+  cursor: pointer;
+  > .s-checkbox, .icon-right-bold {
+    margin: 0 3px 0 10px;
+  }
+  .s-checkbox {
+    vertical-align: middle;
+  }
+  .icon-right-bold {
+    color: @tree-icon-color  ;
+    font-size: 14px;
+    vertical-align: middle;
+    &:before {
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+  &:hover {
+    line-height: 34px;
+    padding-right: 0;
+    border: solid 1px @tree-nodeHover-border;
+    border-radius: 1px;
+    background-color: @tree-nodeHover-bg;
+    box-shadow: 0 0 60px @tree-nodeHover-border inset;
+  }
+}
+
+.s-tree-node.is-current > .s-tree-node-content {
+  line-height: 34px;
+  padding-right: 0;
+  border: solid 1px @tree-nodeHover-border;
+  border-radius: 1px;
+  background-color: @tree-nodeHover-bg;
+  box-shadow: 0 0 60px @tree-nodeHover-border inset;
+}
+
+.s-tree-node-content {
+  &:hover {
+    .s-tree-node-label {
+      color: @tree-labelHover-color;
+    }
+    .icon-right-bold {
+      color: @tree-iconHover-color;
+    }
+  }
+  > span > span:first-child {
+    color: @tree-label-color;
+  }
+  .icon-right-bold {
+    &.expanded:before {
+      transform: rotate(90deg);
+    }
+    &.is-leaf {
+      color: transparent;
+      cursor: default;
+    }
+  }
+}
+
+.s-tree-node-label {
+  font-size: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  color: @tree-label-color;
+}
+
+.s-tree-node-loading-icon {
+  font-size: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 4px;
+  color: @tree-iconHover-color;
+}

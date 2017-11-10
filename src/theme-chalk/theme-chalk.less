@@ -1,17 +1,162 @@
-// 浅色皮肤
+// Color
+@system-background      : #e4e4e4;
+@main-base-color        : #1675cb;
+@main-1-color           : #4591d5;
+@main-2-color           : #2e83d0;
+@main-3-color           : #125ea2;
+@blue-base-color        : #3f8dff;
+@blue-1-color           : #65a4ff;
+@blue-2-color           : #5399ff;
+@blue-3-color           : #3271cc;
+@red-base-color         : #e8504e;
+@red-1-color            : #ed7371;
+@red-2-color            : #ea6260;
+@red-3-color            : #ba403e;
+@yellow-base-color      : #ec9813;
+@yellow-1-color         : #f0ad42;
+@yellow-2-color         : #eea32b;
+@yellow-3-color         : #bd7a0f;
+@green-base-color       : #20c66e;
+@green-1-color          : #4dd18b;
+@green-2-color          : #37cc7d;
+@green-3-color          : #1a9e58;
 
-// success相关颜色
-@success-main-color: rgba(0, 134, 111, 0.75);
-@success-border-color: rgba(0, 195, 111, 0.75);
+@bg-disabled-color      : #bbc1c8;
+@border-disabled-color  : #8b939e;
+@text-disabled-color    : #939699;
+@main-border-color      : #c4c7cc;
+@main-bg-color          : #1d1e21;
+@base-bg-color          : #e4eaf2;
+@split-line-color       : #dce0e5;
 
-// info相关颜色
-@info-main-color: rgba(5, 90, 111, 0.75);
-@info-border-color: rgba(0, 147, 111, 0.75);
+@title-color            :#ffffff;
+@page-color             :#667480;
+@btn-color              :#1675cb;
+@form-color             :#3d454c;
+@placeholder-color      :#8a9299;
+@hover-color            :#20a8f7;
 
-// warn相关颜色
-@warn-main-color: rgba(173, 81, 111, 0.75);
-@warn-border-color: rgba(241, 116, 111, 0.75);
+//大小定义
+@font-size-base         : 14px;
+// alert
+@alert-s-color          : @green-2-color;
+@alert-sb-color         : @green-base-color;
+@alert-w-color          : @yellow-2-color;
+@alert-wb-color         : @yellow-base-color ;
+@alert-i-color          : @blue-2-color;
+@alert-ib-color         : @blue-base-color;
+@alert-e-color          : @red-2-color;
+@alert-eb-color         : @red-base-color;
 
-// error相关颜色
-@error-main-color: rgba(153, 1, 111, 0.75);
-@error-border-color: rgba(210, 3, 111, 0.75);
+// badge
+@badge-color            : @red-base-color;
+@badge-text-color       : @title-color;
+//icon
+@icon-color             : @main-3-color;
+//rate
+@rate-star-color        : @yellow-base-color;
+
+// button
+@btn-default-word       : @title-color;
+@btn-default-bg         : @main-base-color;
+@btn-default-border     : @main-1-color;
+@btn-hover              : @main-3-color;
+@btn-disabled-word      : @text-disabled-color;
+@btn-disabled-border    : @border-disabled-color;
+@btn-disabled-bg        : @bg-disabled-color;
+@btn-cancel-bg          : @main-1-color;
+
+// breadcrumb
+@breadcrumb-color       : @btn-color;
+@breadcrumb-hover-color : @hover-color;
+
+/*---------- divide (prevent conflict) ----------*/
+// tooltip
+@tooltip-border-color     : @main-border-color ;
+@tooltip-darkBg-color     : @main-1-color;
+@tooltip-lightBg-color    : @title-color ;
+@tooltip-content-color    : @form-color ;
+@tooltip-light-fontColor  : @system-background;
+
+// tag
+@tag-selected-color       : @main-base-color;
+@tag-text-color           : @title-color ;
+@tag-content-color        : @form-color ;
+@tag-gray-color           : @bg-disabled-color;
+@tag-primary-color        : @blue-3-color;
+@tag-primary-fontColor    : @blue-2-color;
+@tag-primary-hover-bg     : @blue-base-color;
+@tag-success-color        : @green-3-color;
+@tag-success-fontColor    : @green-2-color;
+@tag-success-hover-bg     : @green-base-color;
+@tag-warning-color        : @yellow-base-color;
+@tag-warning-fontColor    : @yellow-2-color;
+@tag-warning-hover-bg     : @yellow-base-color;
+@tag-error-color          : @red-base-color;
+@tag-error-fontColor      : @red-2-color;
+@tag-error-hover-bg       : @red-base-color;
+
+// progress
+@prop-selected-color  : @main-base-color;
+@prog-success-color   : @green-base-color;
+@prog-warning-color   : @yellow-base-color;
+@prog-error-color     : @red-base-color;
+@prog-text-color      : @title-color  ;
+@prog-border-color    : @main-border-color ;
+@prog-disabled-color  : @border-disabled-color;
+@prog-text-dis-color  : @text-disabled-color;
+@prog-outer-bg        : @system-background;
+
+// popover
+@popo-primary-color     : @main-1-color;
+@popo-border-baseColor  : @main-border-color ;
+@popo-text-color        : @title-color ;
+
+// notification
+@notify-primary-color     : @main-1-color;
+@notify-border-baseColor  : @main-border-color ;
+@notify-text-color        : @title-color ;
+@notify-normal-color      : @form-color ;
+
+// message-box
+@msgBox-primary-color     : @main-1-color;
+@msgBox-border-baseColor  : @main-border-color ;
+@msgBox-text-color        : @title-color ;
+@msgBox-normal-color      : @form-color ;
+@msgBox-headerBg          : @main-3-color;
+@msgBox-header-shadow     : @main-base-color;
+@msgBox-error-color       : @red-base-color;
+@msgBox-error-color2      : @red-3-color;
+
+// message
+@msg-normal-text          : @form-color ;
+@msg-box-shadow           : @system-background;
+
+// input-number
+@inputMum-borderBase      : @main-border-color ;
+@inputMum-normalTxt       : @form-color ;
+@inputMum-text            : @title-color ;
+@inputMum-selected        : @main-base-color;
+@inputMum-borderHover     : @main-3-color;
+@inputMum-textDis         : @text-disabled-color;
+@inputMum-borderDis       : @border-disabled-color;
+@inputMum-Increase        : @bg-disabled-color;
+
+// input
+@input-inner-bg           : @system-background;
+@input-border-base        : @main-border-color ;
+@input-border-hover       : @main-3-color;
+@input-border-dis         : @border-disabled-color;
+@input-text               : @title-color ;
+@input-normalTxt          : @form-color ;
+@input-inner-disBg        : @bg-disabled-color;
+@input-text-dis           : @text-disabled-color;
+@input-placeholder        : @placeholder-color;
+
+// dialog
+@dialog-bg                : @main-1-color;
+@dialog-border            : @main-border-color;
+@dialog-header-bg         : @main-3-color;
+@dialog-header-shadow     : @main-base-color;
+@dialog-text              : @title-color ;
+@dialog-close-hover       : @form-color ;

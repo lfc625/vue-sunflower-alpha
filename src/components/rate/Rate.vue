@@ -59,19 +59,18 @@
         colors: {
           type: Array,
           default() {
-           return ['#02b4e6', '#02b4e6', '#02b4e6'];
-
+           return ['#ffc001', '#ffc001', '#ffc001'];
           }
         },
 
         voidColor: {
           type: String,
-          default: '#1f2930'
+          default: '#344458'
 
         },
        disabledVoidColor: {
           type: String,
-          default: '#1f2930'
+          default: '#344458'
         },
       iconClasses: {
           type: Array,
@@ -101,7 +100,7 @@
         },
         textColor: {
           type: String,
-          default: '02b4e6'
+          default: '#ffc001'
         },
         texts: {
           type: Array,
@@ -278,52 +277,5 @@
       }
     };
 </script>
-<style>
-
-    .s-rate {
-        height: 20px;
-        line-height: 1
-    }
-    .s-rate__item {
-        font-size: 0;
-        vertical-align: middle
-    }
-    .icon-star-full, .s-rate__item {
-        display: inline-block;
-        position: relative
-    }
-    .icon-star-full {
-        font-size: 18px;
-        margin-right: 6px;
-        transition: .3s
-    }
-    .icon-star-full .path2 {
-        position: absolute;
-        left: 0;
-        top: 0
-    }
-    .icon-star-full.hover {
-        -ms-transform: scale(1.15);
-        transform: scale(1.15);
-        background:black;
-    }
-  .s-icon-star-on.hover{
-      -moz-text-shadow:2px 2px 2px #02b4e6;
-      -webkit-text-shadow:2px 2px 2px #02b4e6;
-      text-shadow: 0px 0px 12px #02b4e6;
-  }
-    .s-rate__decimal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: inline-block;
-        overflow: hidden
-    }
-    .s-rate__text {
-        font-size: 14px;
-        vertical-align: middle;
-        color:#02b4e6
-    }
-</style>
 
 

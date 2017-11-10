@@ -4,9 +4,9 @@
       <div class="s-table-filter-content">
         <s-checkbox-group class="s-table-filter-checkbox-group" v-model="filteredValue">
           <s-checkbox
-            v-for="(filter, idx) in filters"
-            :label="filter.value"
-            :key="idx">{{ filter.text }}</s-checkbox>
+            v-for="filter in filters"
+            :key="filter.value"
+            :label="filter.value">{{ filter.text }}</s-checkbox>
         </s-checkbox-group>
       </div>
       <div class="s-table-filter-bottom">
@@ -19,11 +19,12 @@
     <div class="s-table-filter" v-else v-show="showPopper">
       <ul class="s-table-filter-list">
         <li class="s-table-filter-list-item"
-            :class="{ 'is-active': !filterValue }"
+            :class="{ 'is-active': filterValue === undefined || filterValue === null }"
             @click="handleSelect(null)">{{ t('el.table.clearFilter') }}</li>
         <li class="s-table-filter-list-item"
             v-for="filter in filters"
             :label="filter.value"
+            :key="filter.value"
             :class="{ 'is-active': isActive(filter) }"
             @click="handleSelect(filter.value)" >{{ filter.text }}</li>
       </ul>
@@ -166,54 +167,3 @@
     }
   };
 </script>
-<style>
-  .s-table-filter {
-    border: solid 1px rgb(24, 67, 112);
-    border-radius: 2px;
-    background-color: rgb(9, 22, 41);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .12);
-    box-sizing: border-box;
-    margin: 2px 0;
-  }
-
-  .s-table-filter-content {
-    min-width: 100px;
-  }
-
-  .s-table-filter-checkbox-group {
-    padding: 10px;
-  }
-
-  .s-checkbox+.s-checkbox {
-    margin-left: 15px;
-  }
-
-  .s-table-filter-checkbox-group .s-checkbox {
-    display: block;
-    margin-bottom: 8px;
-    margin-left: 5px;
-  }
-  .s-table-filter-checkbox-group .s-checkbox:last-child {
-    margin-bottom: 0;
-  }
-
-  .s-table-filter-bottom {
-    background-color: rgba(24, 67, 112, 0.302);
-    padding: 8px;
-  }
-
-  .s-table-filter-bottom button.is-disabled {
-    color: rgb(35, 117, 181);
-    cursor: not-allowed;
-  }
-
-  .s-table-filter-bottom button {
-    background: transparent;
-    border: none;
-    color: rgb(49, 170, 255);
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0 3px;
-  }
-
-</style>

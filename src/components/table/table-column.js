@@ -1,7 +1,7 @@
 import {Checkbox} from '../checkbox';
 import Tag from '../tag';
 import objectAssign from '../extra/utils/merge';
-import { getValueByPath } from './util';
+import { getPropByPath } from '../extra/utils/util';
 
 let columnIdSeed = 1;
 
@@ -50,8 +50,17 @@ const forced = {
     renderHeader: function(h, { column }) {
       return column.label || '#';
     },
-    renderCell: function(h, { $index }) {
-      return <div>{ $index + 1 }</div>;
+    renderCell: function(h, { $index, column }) {
+      let i = $index + 1;
+      const index = column.index;
+
+      if (typeof index === 'number') {
+        i = $index + index;
+      } else if (typeof index === 'function') {
+        i = index($index);
+      }
+
+      return <div>{ i }</div>;
     },
     sortable: false
   },
@@ -97,15 +106,11 @@ const getDefaultColumn = function(type, options) {
 
 const DEFAULT_RENDER_CELL = function(h, { row, column }) {
   const property = column.property;
+  const value = property && getPropByPath(row, property).v;
   if (column && column.formatter) {
-    return column.formatter(row, column);
+    return column.formatter(row, column, value);
   }
-
-  if (property && property.indexOf('.') === -1) {
-    return row[property];
-  }
-
-  return getValueByPath(row, property);
+  return value;
 };
 
 export default {
@@ -129,6 +134,7 @@ export default {
       default: false
     },
     sortMethod: Function,
+    sortBy: [String, Function, Array],
     resizable: {
       type: Boolean,
       default: true
@@ -150,7 +156,8 @@ export default {
     filterMultiple: {
       type: Boolean,
       default: true
-    }
+    },
+    index: [Number, Function]
   },
 
   data() {
@@ -228,6 +235,7 @@ export default {
       headerAlign: this.headerAlign ? 'is-' + this.headerAlign : (this.align ? 'is-' + this.align : null),
       sortable: this.sortable === '' ? true : this.sortable,
       sortMethod: this.sortMethod,
+      sortBy: this.sortBy,
       resizable: this.resizable,
       showOverflowTooltip: this.showOverflowTooltip || this.showTooltipWhenOverflow,
       formatter: this.formatter,
@@ -240,7 +248,8 @@ export default {
       filterMultiple: this.filterMultiple,
       filterOpened: false,
       filteredValue: this.filteredValue || [],
-      filterPlacement: this.filterPlacement || ''
+      filterPlacement: this.filterPlacement || '',
+      index: this.index
     });
 
     objectAssign(column, forced[type] || {});
@@ -265,23 +274,7 @@ export default {
     }
 
     column.renderCell = function(h, data) {
-      // 未来版本移除
-      if (_self.$vnode.data.inlineTemplate) {
-        renderCell = function() {
-          data._self = _self.context || data._self;
-          if (Object.prototype.toString.call(data._self) === '[object Object]') {
-            for (let prop in data._self) {
-              if (!data.hasOwnProperty(prop)) {
-                data[prop] = data._self[prop];
-              }
-            }
-          }
-          // 静态内容会缓存到 _staticTrees 内，不改的话获取的静态数据就不是内部 context
-          data._staticTrees = _self._staticTrees;
-          data.$options.staticRenderFns = _self.$options.staticRenderFns;
-          return _self.customRender.call(data);
-        };
-      } else if (_self.$scopedSlots.default) {
+      if (_self.$scopedSlots.default) {
         renderCell = () => _self.$scopedSlots.default(data);
       }
 
@@ -290,8 +283,8 @@ export default {
       }
 
       return _self.showOverflowTooltip || _self.showTooltipWhenOverflow
-              ? <div class="cell s-tooltip" style={'width:' + (data.column.realWidth || data.column.width) + 'px'}>{ renderCell(h, data) }</div>
-              : <div class="cell">{ renderCell(h, data) }</div>;
+        ? <div class="cell s-tooltip" style={'width:' + (data.column.realWidth || data.column.width) + 'px'}>{ renderCell(h, data) }</div>
+        : <div class="cell">{ renderCell(h, data) }</div>;
     };
   },
 
@@ -371,6 +364,12 @@ export default {
     sortable(newVal) {
       if (this.columnConfig) {
         this.columnConfig.sortable = newVal;
+      }
+    },
+
+    index(newVal) {
+      if (this.columnConfig) {
+        this.columnConfig.index = newVal;
       }
     }
   },

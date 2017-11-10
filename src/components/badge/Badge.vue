@@ -13,7 +13,7 @@
 </template>
 <script>
   export default {
-    name: "s-badge",
+    name: "SBadge",
 
     props: {
       value: {},
@@ -35,48 +35,3 @@
     }
   }
 </script>
-<style>
-  .s-badge {
-    position: relative;
-    vertical-align: middle;
-    display: inline-block
-  }
-
-  .s-badge + .s-badge {
-    margin-left: 40px;
-  }
-
-  .s-badge-content {
-    background-color: #ff4949;
-    border-radius: 10px;
-    color: #fff;
-    display: inline-block;
-    font-size: 12px;
-    height: 20px;
-    line-height: 18px;
-    padding: 0 6px;
-    text-align: center;
-    white-space: nowrap;
-    border: 1px solid #fff
-  }
-
-  .s-badge-content.is-dot {
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    right: 0;
-    border-radius: 50%
-  }
-
-  .s-badge-content.is-fixed {
-    top: 0;
-    right: 10px;
-    position: absolute;
-    transform: translateY(-50%) translateX(100%)
-  }
-
-  .s-badge-content.is-fixed.is-dot {
-    right: 5px
-  }
-
-</style>

@@ -1,56 +1,62 @@
 <template>
-  <div class="s-slider">
-    <s-input-number
-      v-model="inputValue"
-      v-if="showInput && !range"
-      class="s-slider-input"
-      ref="input"
-      type="topBottom"
-      :step="step"
-      :disabled="disabled"
-      :controls="showInputControls"
-      :min="min"
-      :max="max"
-      size="small">
-    </s-input-number>
-    <div class="s-slider-runway"
-         :class="{ 'show-input': showInput, 'disabled': disabled }"
-         @click="onSliderClick"
-         ref="slider">
-      <div
-        class="s-slider-bar"
-        :style="{
-          width: barWidth,
-          left: barLeft
-        }">
-      </div>
-      <slider-button
-        v-model="firstValue"
-        ref="button1">
-      </slider-button>
-      <slider-button
-        v-model="secondValue"
-        ref="button2"
-        v-if="range">
-      </slider-button>
-      <div
-        class="s-slider-stop"
-        v-for="item in stops"
-        :style="{ 'left': item + '%' }"
-        v-if="showStops">
-      </div>
+    <div class="s-slider"
+         :class="[{ 'is-vertical': vertical, 's-slider--with-input': showInput }]"
+         role="slider"
+         :aria-valuemin="min"
+         :aria-valuemax="max"
+         :aria-orientation="vertical ? 'vertical': 'horizontal'"
+         :aria-disabled="disabled"
+    >
+        <s-input-number
+                v-model="firstValue"
+                v-if="showInput && !range"
+                class="s-sliderr__input"
+                ref="input"
+                @change="$nextTick(emitChange)"
+                :step="step"
+                :disabled="disabled"
+                :controls="showInputControls"
+                :min="min"
+                :max="max"
+                :debounce="debounce"
+                size="small">
+        </s-input-number>
+        <div class="s-slider__runway"
+             :class="[{ 'show-input': showInput, 'disabled': disabled }]"
+             :style="runwayStyle"
+             @click="onSliderClick"
+             ref="slider">
+            <div class="s-slider__bar"
+                 :style="barStyle"></div>
+            <slider-button
+                    :vertical="vertical"
+                    v-model="firstValue"
+                    ref="button1">
+            </slider-button>
+            <slider-button
+                    :vertical="vertical"
+                    v-model="secondValue"
+                    ref="button2"
+                    v-if="range">
+            </slider-button>
+            <div
+                    class="s-slider__stop"
+                    v-for="item in stops"
+                    :style="vertical ? { 'bottom': item + '%' } : { 'left': item + '%' }"
+                    v-if="showStops">
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script type="text/babel">
   import InputNumber from '../input-number/index';
   import SliderButton from './Button';
-  import { getStyle } from '../extra/utils/dom';
+  import Emitter from '../extra/mixins/emitter';
 
   export default {
-    name: 'sSlider',
-
+    name: 'SSlider',
+    mixins: [Emitter],
     props: {
       min: {
         type: Number,
@@ -80,6 +86,11 @@
         type: Boolean,
         default: false
       },
+      showTooltip: {
+        type: Boolean,
+        default: true
+      },
+      formatTooltip: Function,
       disabled: {
         type: Boolean,
         default: false
@@ -87,6 +98,20 @@
       range: {
         type: Boolean,
         default: false
+      },
+      vertical: {
+        type: Boolean,
+        default: false
+      },
+      height: {
+        type: String
+      },
+      debounce: {
+        type: Number,
+        default: 300
+      },
+      label: {
+        type: String
       }
     },
 
@@ -100,17 +125,12 @@
         firstValue: null,
         secondValue: null,
         oldValue: null,
-        precision: 0,
-        inputValue: null,
-        dragging: false
+        dragging: false,
+        sliderSize: 1
       };
     },
 
     watch: {
-      inputValue(val) {
-        this.firstValue = val;
-      },
-
       value(val, oldVal) {
         if (this.dragging ||
           Array.isArray(val) &&
@@ -131,7 +151,6 @@
         if (this.range) {
           this.$emit('input', [this.minValue, this.maxValue]);
         } else {
-          this.inputValue = val;
           this.$emit('input', val);
         }
       },
@@ -175,7 +194,7 @@
             this.firstValue = val[0];
             this.secondValue = val[1];
             if (this.valueChanged()) {
-              this.$emit('change', [this.minValue, this.maxValue]);
+              this.dispatch('SFormItem', 'el.form.change', [this.minValue, this.maxValue]);
               this.oldValue = val.slice();
             }
           }
@@ -187,7 +206,7 @@
           } else {
             this.firstValue = val;
             if (this.valueChanged()) {
-              this.$emit('change', val);
+              this.dispatch('SFormItem', 'el.form.change', val);
               this.oldValue = val;
             }
           }
@@ -211,17 +230,35 @@
 
       onSliderClick(event) {
         if (this.disabled || this.dragging) return;
-        const sliderOffsetLeft = this.$refs.slider.getBoundingClientRect().left;
-        this.setPosition((event.clientX - sliderOffsetLeft) / this.$sliderWidth * 100);
+        this.resetSize();
+        if (this.vertical) {
+          const sliderOffsetBottom = this.$refs.slider.getBoundingClientRect().bottom;
+          this.setPosition((sliderOffsetBottom - event.clientY) / this.sliderSize * 100);
+        } else {
+          const sliderOffsetLeft = this.$refs.slider.getBoundingClientRect().left;
+          this.setPosition((event.clientX - sliderOffsetLeft) / this.sliderSize * 100);
+        }
+        this.emitChange();
+      },
+      resetSize() {
+        if (this.$refs.slider) {
+          this.sliderSize = this.$refs.slider[`client${ this.vertical ? 'Height' : 'Width' }`];
+        }
+      },
+      emitChange() {
+        this.$nextTick(() => {
+          this.$emit('change', this.range ? [this.minValue, this.maxValue] : this.value);
+        });
       }
     },
 
     computed: {
-      $sliderWidth() {
-        return parseInt(getStyle(this.$refs.slider, 'width'), 10);
-      },
-
       stops() {
+        if (this.step === 0) {
+          process.env.NODE_ENV !== 'production' &&
+          console.warn('[Warning][Slider]step should not be 0.');
+          return [];
+        }
         const stopCount = (this.max - this.min) / this.step;
         const stepWidth = 100 * this.step / (this.max - this.min);
         const result = [];
@@ -246,20 +283,44 @@
         return Math.max(this.firstValue, this.secondValue);
       },
 
-      barWidth() {
+      barSize() {
         return this.range
-          ? `${100 * (this.maxValue - this.minValue) / (this.max - this.min)}%`
-          : `${100 * (this.firstValue - this.min) / (this.max - this.min)}%`;
+          ? `${ 100 * (this.maxValue - this.minValue) / (this.max - this.min) }%`
+          : `${ 100 * (this.firstValue - this.min) / (this.max - this.min) }%`;
       },
 
-      barLeft() {
+      barStart() {
         return this.range
-          ? `${100 * (this.minValue - this.min) / (this.max - this.min)}%`
+          ? `${ 100 * (this.minValue - this.min) / (this.max - this.min) }%`
           : '0%';
+      },
+
+      precision() {
+        let precisions = [this.min, this.max, this.step].map(item => {
+          let decimal = ('' + item).split('.')[1];
+          return decimal ? decimal.length : 0;
+        });
+        return Math.max.apply(null, precisions);
+      },
+
+      runwayStyle() {
+        return this.vertical ? { height: this.height } : {};
+      },
+
+      barStyle() {
+        return this.vertical
+          ? {
+            height: this.barSize,
+            bottom: this.barStart
+          } : {
+            width: this.barSize,
+            left: this.barStart
+          };
       }
     },
 
     mounted() {
+      let valuetext;
       if (this.range) {
         if (Array.isArray(this.value)) {
           this.firstValue = Math.max(this.min, this.value[0]);
@@ -269,6 +330,7 @@
           this.secondValue = this.max;
         }
         this.oldValue = [this.firstValue, this.secondValue];
+        valuetext = `${this.firstValue}-${this.secondValue}`;
       } else {
         if (typeof this.value !== 'number' || isNaN(this.value)) {
           this.firstValue = this.min;
@@ -276,148 +338,15 @@
           this.firstValue = Math.min(this.max, Math.max(this.min, this.value));
         }
         this.oldValue = this.firstValue;
+        valuetext = this.firstValue;
       }
-      let precisions = [this.min, this.max, this.step].map(item => {
-        let decimal = ('' + item).split('.')[1];
-        return decimal ? decimal.length : 0;
-      });
-      this.precision = Math.max.apply(null, precisions);
-      this.inputValue = this.inputValue || this.firstValue;
+      this.$el.setAttribute('aria-valuetext', valuetext);
+
+      // label screen reader
+      this.$el.setAttribute('aria-label', this.label ? this.label : `slider between ${this.min} and ${this.max}`);
+
+      this.resetSize();
+      window.addEventListener('resize', this.resetSize);
     }
   };
 </script>
-<style>
-  .s-slider-button-wrapper:after {
-    display: inline-block;
-    content: "";
-    height: 100%;
-    vertical-align: middle
-  }
-
-  .s-slider:after,.s-slider:before {
-    display: table;
-    content: ""
-  }
-
-  .s-slider:after {
-    clear: both
-  }
-
-  .s-slider-runway {
-    width: 100%;
-    height: 5px;
-    margin: 16px 0;
-    background-color: #293442;
-    border-radius: 3px;
-    position: relative;
-    cursor: pointer;
-    vertical-align: middle
-  }
-
-  .s-slider-runway.show-input {
-    margin-right: 160px;
-    width: auto
-  }
-
-  .s-slider-runway.disabled {
-    cursor: default
-  }
-
-  .s-slider-runway.disabled .s-slider-bar,.s-slider-runway.disabled .s-slider-button {
-    background-color: #273445;
-    border:1px solid #3f4e5f
-  }
-
-  .s-slider-runway.disabled .s-slider-button-wrapper.dragging,.s-slider-runway.disabled .s-slider-button-wrapper.hover,.s-slider-runway.disabled .s-slider-button-wrapper:hover {
-    cursor: not-allowed
-  }
-
-  .s-slider-runway.disabled .s-slider-button.dragging,.s-slider-runway.disabled .s-slider-button.hover,.s-slider-runway.disabled .s-slider-button:hover {
-    transform: scale(1)
-  }
-
-  .s-slider-runway.disabled .s-slider-button.dragging,.s-slider-runway.disabled .s-slider-button.hover,.s-slider-runway.disabled .s-slider-button:hover {
-    cursor: not-allowed
-  }
-
-  .s-slider-input {
-    float: right;
-    margin-top: 3px
-  }
-
-  .s-slider-bar {
-    height: 5px;
-    background-color: #053c69;
-    border:1px solid #2c7ebd;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    position: absolute
-  }
-
-  .s-slider-button-wrapper {
-    width: 36px;
-    height: 36px;
-    position: absolute;
-    z-index: 1001;
-    top: -16px;
-    transform: translateX(-50%);
-    background-color: transparent;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none
-  }
-
-  .s-slider-button-wrapper .s-tooltip {
-    vertical-align: middle;
-    display: inline-block
-  }
-
-  .s-slider-button-wrapper.hover,.s-slider-button-wrapper:hover {
-    cursor: -webkit-grab;
-    cursor: grab
-  }
-
-  .s-slider-button-wrapper.dragging {
-    cursor: -webkit-grabbing;
-    cursor: grabbing
-  }
-
-  .s-slider-button {
-    width: 12px;
-    height: 12px;
-    background-color: #053b69;
-    border:1px solid rgb(22,117,203);
-    border-radius: 50%;
-    transition: .2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none
-  }
-
-  .s-slider-button.dragging,.s-slider-button.hover,.s-slider-button:hover {
-    transform: scale(1.5);
-    background-color: #053b68;
-    border:1px solid #2574b5;
-  }
-
-  .s-slider-button.hover,.s-slider-button:hover {
-    cursor: -webkit-grab;
-    cursor: grab
-  }
-  .s-slider-button.dragging {
-    cursor: -webkit-grabbing;
-    cursor: grabbing
-  }
-
-  .s-slider-stop {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 100%;
-    background-color: #445a75;
-    transform: translateX(-50%)
-  }
-</style>

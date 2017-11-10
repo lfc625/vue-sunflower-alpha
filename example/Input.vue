@@ -62,23 +62,27 @@
           <s-input
             placeholder="请选择日期"
             suffix-icon="calendar"
-            v-model="input2">
+            v-model="input2"
+            style="margin-top: 15px;">
           </s-input>
           <s-input
             placeholder="请输入内容"
             prefix-icon="magnifier"
-            v-model="input3">
+            v-model="input3"
+            style="margin-top: 15px;">
           </s-input>
 
           slot 方式：
           <s-input
             placeholder="请选择日期"
-            v-model="input4">
+            v-model="input4"
+            style="margin-top: 15px;">
             <i slot="suffix" class="s-input-icon iconfont icon-calendar"></i>
           </s-input>
           <s-input
             placeholder="请输入内容"
-            v-model="input5">
+            v-model="input5"
+            style="margin-top: 15px;">
             <i slot="prefix" class="s-input-icon iconfont icon-magnifier"></i>
           </s-input>
       </div>
@@ -89,22 +93,26 @@
             <s-input
               placeholder="请选择日期"
               suffix-icon="el-icon-date"
-              v-model="input2">
+              v-model="input2"
+              style="margin-top: 15px;">
             </s-input>
             <s-input
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
-              v-model="input3">
+              v-model="input3"
+              style="margin-top: 15px;">
             </s-input>
             slot 方式：
             <s-input
               placeholder="请选择日期"
-              v-model="input4">
+              v-model="input4"
+              style="margin-top: 15px;">
               <i slot="suffix" class="s-input-icon iconfont icon-calendar"></i>
             </s-input>
             <s-input
               placeholder="请输入内容"
-              v-model="input5">
+              v-model="input5"
+              style="margin-top: 15px;">
               <i slot="prefix" class="s-input-icon iconfont icon-magnifier"></i>
             </s-input>
 

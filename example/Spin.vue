@@ -9,7 +9,7 @@
         <p>当区块正在获取数据中时可使用，适当的等待动画可以提升用户体验。</p>
         <h3>基本用法</h3>
         <ul style="width: 100%;height: 60px;">
-            <li style="border:1px solid;float:left;width: 160px;height: 80px"><s-spin type="pulse" color="#000" size="20px"></s-spin></li>
+            <li style="border:1px solid;float:left;width: 160px;height: 80px"><s-spin type="pulse" color="blue" size="20px"></s-spin></li>
             <li style="position:relative;border:1px solid;float:left;width: 160px;height: 80px"><s-spin type="clip" fix></s-spin></li>
             <li style="border:1px solid;float:left;width: 160px;height: 80px"><s-spin type="beat"></s-spin></li>
             <li style="border:1px solid;float:left;width: 160px;height: 80px"><s-spin type="scale"></s-spin></li>
@@ -20,10 +20,7 @@
                 &lt;s-spin&gt;&lt;/s-spin&gt;
             </code>
         </pre>
-        <h3>特殊情况</h3>
-        <p>以下这个无法使用默认定位需要手动设置</p>
-        <li style="width: 160px;height: 80px"><s-spin type="fade"></s-spin></li>
-        <h3>使用情况</h3>
+        <h3>如何使用</h3>
         <p>以下这个无法使用默认定位需要手动设置</p>
         <div style="position:relative;border:1px solid;width:300px;height:300px;">
             <div v-if="!spinShow">

@@ -10,56 +10,56 @@
       </div>
       <example-code>
         <textarea>
-    <s-switch v-model="value1"></s-switch>
-    <script>
-      export default {
-        data() {
-          return {
-            value1: true
-          }
-        }
-      }
-    </script>
+          <s-switch v-model="value1"></s-switch>
+          <script>
+            export default {
+              data() {
+                return {
+                  value1: true
+                }
+              }
+            }
+          </script>
         </textarea>
         <pre><code></code></pre>
       </example-code>
     </div>
 
     <h3>自定义显示的文字</h3>
-    <div class="desc">通过 on-text off-text 可自定义显示的文字，默认不显示文字。</div>
+    <div class="desc">通过 active-text inactive-text 可自定义显示的文字，默认不显示文字。</div>
     <div class="example">
       <div class="example-demo">
-        <s-switch v-model="value2" on-text="ON" off-text="OFF"></s-switch>
-        <s-switch v-model="value3" on-text="A" off-text="B"></s-switch>
+        <s-switch v-model="value2" active-text="ON" inactive-text="OFF"></s-switch>
+        <s-switch v-model="value3" active-text="A" inactive-text="B"></s-switch>
       </div>
       <example-code>
         <textarea>
-    <s-switch v-model="value2" on-text="ON" off-text="OFF"></s-switch>
-    <s-switch v-model="value3" on-text="A" off-text="B"></s-switch>
-    <script>
-      export default {
-        data() {
-          return {
-            value2: true,
-            value3: true
-          }
-        }
-      }
-    </script>
+          <s-switch v-model="value2" active-text="ON" inactive-text="OFF"></s-switch>
+          <s-switch v-model="value3" active-text="A" inactive-text="B"></s-switch>
+          <script>
+            export default {
+              data() {
+                return {
+                  value2: true,
+                  value3: true
+                }
+              }
+            }
+          </script>
         </textarea>
         <pre><code></code></pre>
       </example-code>
     </div>
 
     <h3>自定义背景颜色</h3>
-    <div class="desc">通过 on-color off-color ball-color可自定义背景颜色。</div>
+    <div class="desc">通过 active-color inactive-color可自定义背景颜色。</div>
     <div class="example">
       <div class="example-demo">
-        <s-switch v-model="value4" on-color="#13ce66" off-color="#ff4949" ball-color="#fff"></s-switch>
+        <s-switch v-model="value4" active-color="#13ce66" inactive-color="#ff4949"></s-switch>
       </div>
       <example-code>
         <textarea>
-    <s-switch v-model="value4" on-color="#13ce66" off-color="#ff4949" ball-color="#fff"></s-switch>
+    <s-switch v-model="value4" active-color="#13ce66" inactive-color="#ff4949"></s-switch>
     <script>
       export default {
         data() {
@@ -101,20 +101,20 @@
     </div>
 
     <h3>扩展 value 类型</h3>
-    <div class="desc">通过 on-value off-value 可以扩展 value 的类型，可扩展 数字类型 和 字符串。</div>
+    <div class="desc">通过 active-value inactive-value 可以扩展 value 的类型，可扩展 数字类型 和 字符串。</div>
     <div class="example">
       <div class="example-demo">
-        <s-switch v-model="value7" :on-value="1" :off-value="0"></s-switch>
-        <s-switch v-model="value8" :on-value="1" :off-value="0"></s-switch>
-        <s-switch v-model="value9" on-value="yes" off-value="no"></s-switch>
-        <s-switch v-model="value10" on-value="yes" off-value="no"></s-switch>
+        <s-switch v-model="value7" active-value="1" inactive-value="0"></s-switch>
+        <s-switch v-model="value8" active-value="1" inactive-value="0"></s-switch>
+        <s-switch v-model="value9" active-value="yes" inactive-value="no"></s-switch>
+        <s-switch v-model="value10" active-value="yes" inactive-value="no"></s-switch>
       </div>
       <example-code>
         <textarea>
-    <s-switch v-model="value7" :on-value="1" :off-value="0"></s-switch>
-    <s-switch v-model="value8" :on-value="1" :off-value="0"></s-switch>
-    <s-switch v-model="value9" on-value="yes" off-value="no"></s-switch>
-    <s-switch v-model="value10" on-value="yes" off-value="no"></s-switch>
+    <s-switch v-model="value7" active-value="1" inactive-value="0"></s-switch>
+    <s-switch v-model="value8"active-value="1" inactive-value="0"></s-switch>
+    <s-switch v-model="value9" active-value="yes" inactive-value="no"></s-switch>
+    <s-switch v-model="value10" active-value="yes" inactive-value="no"></s-switch>
     <script>
       export default {
         data() {
@@ -137,14 +137,14 @@
     <div class="example">
       <div class="example-demo">
         <s-switch v-model="value11" @change="change11"></s-switch><span>{{message11}}</span>
-        <s-switch v-model="value12" @change="change12" :on-value="1" :off-value="0"></s-switch><span>{{message12}}</span>
-        <s-switch v-model="value13" @change="change13" on-value="1" off-value="0"></s-switch><span>{{message13}}</span>
+        <s-switch v-model="value12" @change="change12" active-value="1" inactive-value="0"></s-switch><span>{{message12}}</span>
+        <s-switch v-model="value13" @change="change13" active-value="1" inactive-value="0"></s-switch><span>{{message13}}</span>
       </div>
       <example-code>
         <textarea>
     <s-switch v-model="value11" @change="change11"></s-switch><span>{{message11}}</span>
-    <s-switch v-model="value12" @change="change12" :on-value="1" :off-value="0"></s-switch><span>{{message12}}</span>
-    <s-switch v-model="value13" @change="change13" on-value="1" off-value="0"></s-switch><span>{{message13}}</span>
+    <s-switch v-model="value12" @change="change12" active-value="1" inactive-value="0"></s-switch><span>{{message12}}</span>
+    <s-switch v-model="value13" @change="change13" active-value="1" inactive-value="0"></s-switch><span>{{message13}}</span>
     <script>
       export default {
         data() {

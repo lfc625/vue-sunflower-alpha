@@ -1,74 +1,249 @@
-// 深色皮肤
+/*
+ * 深色皮肤
+ */
 
-// Prefix
-@css-prefix             : s-;
-@css-prefix-iconfont    : iconfont icon-;
+//系统颜色
+@system-background        : #000009;
 
-// Color
-@primary-color          : #041729;
-@info-color             : #00aeff;
-@success-color          : #20d15a;
-@warning-color          : #ffc001;
-@error-color            : #f51131;
-@link-color             : #66ceff;
-@link-hover-color       : #b3e7ff;
-@selected-color         : #1675cb;
-@tooltip-color          : #fff;
-@rate-star-color        : #ffc001;
-@alert-s-color          : #0d5424;
-@alert-sb-color         : #20d15a;
-@alert-w-color          : #664d00;
-@alert-wb-color         : #ffc001;
-@alert-i-color          : #004666;
-@alert-ib-color         : #00aeff;
-@alert-e-color          : #620714;
-@alert-eb-color         : #f51131;
-// Base
-@body-background        : rgba(4,23,41,0.5);
-@title-color            : #bad6f0;
-@text-color             : #ffffff;
-@font-size-base         : 14px;
-@font-size-small        : 12px;
-@cursor-disabled        : not-allowed;
+// main 主色系
+@main-base-color          : #1675cb;
+@main-1-color             : #041729;
+@main-2-color             : #092f51;
+@main-3-color             : #0d467a;
+@main-4-color             : #3c80ba;
+@main-5-color             : #6da0cb;
 
-// Border color
-@border-color-base      : #344458;
-@border-color-disabled    : #34383b;
-@border-color-table  : #1d1e21;
+// yellow 黄色系
+@yellow-base-color        : #ffc001;
+@yellow-1-color           : #332600;
+@yellow-2-color           : #664d00;
+@yellow-3-color           : #997301;
+@yellow-4-color           : #ffcd34;
+@yellow-5-color           : #ffd967;
 
-// Background color
+// green 绿色系
+@green-base-color         : #20d15a;
+@green-1-color            : #062a12;
+@green-2-color            : #0d5424;
+@green-3-color            : #137d36;
+@green-4-color            : #4dda7b;
+@green-5-color            : #79e39c;
 
+// blue 蓝色系
+@blue-base-color          : #00aeff;
+@blue-1-color             : #002333;
+@blue-2-color             : #004666;
+@blue-3-color             : #006899;
+@blue-4-color             : #33beff;
+@blue-5-color             : #66ceff;
 
-// Button
-/* @btn-font-weight        : normal;
-@btn-padding-base       : 6px 15px;
-@btn-padding-large      : 6px 15px 7px 15px;
-@btn-padding-small      : 2px 7px;
-@btn-font-size          : 12px;
-@btn-font-size-large    : 14px;
-@btn-border-radius      : 4px;
-@btn-border-radius-small: 3px;
-@btn-group-border       : shade(@primary-color, 5%);
+// red 红色系
+@red-base-color           : #f51131;
+@red-1-color              : #31030a;
+@red-2-color              : #620714;
+@red-3-color              : #930a1d;
+@red-4-color              : #f7415a;
+@red-5-color              : #f97083;
 
-@btn-disable-color      : #bbbec4;
-@btn-disable-bg         : @background-color-base;
-@btn-disable-border     : @border-color-base;
+// text 文字颜色
+@text-content-color       : #ffffff;    // 正文内容
+@text-normal-color        : #cdcdcd;    // label/常态内容
+@text-disabled-color      : #565b5d;    // 禁灰文字
 
-@btn-default-color      : @text-color;
-@btn-default-bg         : @background-color-base;
-@btn-default-border     : @border-color-base;
+@text-link-color          : #66ceff;    // 可点击的a/文字链接
+@link-hover-color         : #b3e7ff;    // 鼠标滑过文字颜色
 
-@btn-primary-color      : #fff;
-@btn-primary-bg         : @primary-color;
+@info-title-color          : #bad6f0;    // 信息标题颜色
+@remark-msg-color         : #8494a3;    // 备注信息颜色
 
-@btn-ghost-color        : @text-color;
-@btn-ghost-bg           : transparent;
-@btn-ghost-border       : @border-color-base;
+@placeholder-color        : #6f787d;    // placeholder颜色
 
-@btn-circle-size        : 32px;
-@btn-circle-size-large  : 36px;
-@btn-circle-size-small  : 24px; */
+// border 边框颜色
+@border-base-color        : #344458;    // input边框颜色
+@border-disabled-color    : #34383b;    // input禁灰边框
+@bg-disabled-color        : #1d1e21;    // input禁灰背景
+
+//大小定义
+@font-size-base           : 14px;
 
 
-// Input
+/**------------Components Color Defined Start------------**/
+// alert
+@alert-s-color          : @green-2-color;
+@alert-sb-color         : @green-base-color;
+@alert-w-color          : @yellow-2-color;
+@alert-wb-color         : @yellow-base-color ;
+@alert-i-color          : @blue-2-color;
+@alert-ib-color         : @blue-base-color;
+@alert-e-color          : @red-2-color;
+@alert-eb-color         : @red-base-color;
 
+// badge
+@badge-color            : @red-base-color;
+@badge-text-color       : @text-content-color;
+
+  //icon
+@icon-color             : @main-3-color;
+
+//rate
+@rate-star-color        : @yellow-4-color;
+
+// button
+@btn-default-word       : @text-content-color;
+@btn-default-bg         : @main-3-color;
+@btn-default-border     : @main-base-color;
+@btn-hover              : @main-5-color;
+@btn-disabled-word      : @text-disabled-color;
+@btn-disabled-border    : @border-disabled-color;
+@btn-disabled-bg        : @bg-disabled-color;
+@btn-cancel-bg          : @main-1-color;
+
+// breadcrumb
+@breadcrumb-color       : @remark-msg-color;
+@breadcrumb-hover-color : @link-hover-color;
+
+// radio
+@radio-label              : @text-content-color;
+@radio-border-base        : @border-base-color;
+
+
+/*---------- divide (prevent conflict) ----------*/
+// tooltip
+@tooltip-border-color     : @border-base-color;
+@tooltip-darkBg-color     : @main-1-color;
+@tooltip-lightBg-color    : @text-content-color;
+@tooltip-content-color    : @text-normal-color;
+@tooltip-light-fontColor : @system-background;
+
+// tag
+@tag-selected-color       : @main-base-color;
+@tag-text-color           : @text-content-color;
+@tag-content-color        : @text-normal-color;
+@tag-gray-color           : @bg-disabled-color;
+@tag-primary-color        : @blue-5-color;
+@tag-primary-fontColor    : @blue-2-color;
+@tag-primary-hover-bg     : @blue-base-color;
+@tag-success-color        : @green-5-color;
+@tag-success-fontColor    : @green-2-color;
+@tag-success-hover-bg     : @green-base-color;
+@tag-warning-color        : @yellow-5-color;
+@tag-warning-fontColor    : @yellow-2-color;
+@tag-warning-hover-bg     : @yellow-base-color;
+@tag-error-color          : @red-5-color;
+@tag-error-fontColor      : @red-2-color;
+@tag-error-hover-bg       : @red-base-color;
+
+// progress
+@prop-selected-color  : @main-base-color;
+@prog-success-color   : @green-base-color;
+@prog-warning-color   : @yellow-base-color;
+@prog-error-color     : @red-base-color;
+@prog-text-color      : @text-content-color ;
+@prog-border-color    : @border-base-color;
+@prog-disabled-color  : @border-disabled-color;
+@prog-text-dis-color  : @text-disabled-color;
+@prog-outer-bg        : @system-background;
+
+// popover
+@popo-primary-color     : @main-1-color;
+@popo-border-baseColor  : @border-base-color;
+@popo-text-color        : @text-content-color;
+@popo-title-color       : @info-title-color;
+
+// notification
+@notify-primary-color     : @main-1-color;
+@notify-border-baseColor  : @border-base-color;
+@notify-text-color        : @text-content-color;
+@notify-normal-color      : @text-normal-color;
+
+// message-box
+@msgBox-primary-color     : @main-1-color;
+@msgBox-border-baseColor  : @border-base-color;
+@msgBox-text-color        : @text-content-color;
+@msgBox-normal-color      : @text-normal-color;
+@msgBox-headerBg          : @main-3-color;
+@msgBox-header-shadow     : @main-base-color;
+@msgBox-error-color       : @red-base-color;
+@msgBox-error-color2      : @red-5-color;
+
+// message
+@msg-normal-text          : @text-normal-color;
+@msg-box-shadow           : @system-background;
+
+// input-number
+@inputMum-borderBase      : @border-base-color;
+@inputMum-normalTxt       : @text-normal-color;
+@inputMum-text            : @text-content-color;
+@inputMum-selected        : @main-base-color;
+@inputMum-borderHover     : @main-5-color;
+@inputMum-textDis         : @text-disabled-color;
+@inputMum-borderDis       : @border-disabled-color;
+@inputMum-Increase        : @bg-disabled-color;
+
+// input
+@input-inner-bg           : @system-background;
+@input-border-base        : @border-base-color;
+@input-border-hover       : @main-5-color;
+@input-border-dis         : @border-disabled-color;
+@input-text               : @text-content-color;
+@input-normalTxt          : @text-normal-color;
+@input-inner-disBg        : @bg-disabled-color;
+@input-text-dis           : @text-disabled-color;
+@input-placeholder        : @placeholder-color;
+
+// dialog
+@dialog-bg                : @main-1-color;
+@dialog-border            : @border-base-color;
+@dialog-header-bg         : @main-3-color;
+@dialog-header-shadow     : @main-base-color;
+@dialog-text              : @text-content-color;
+@dialog-close-hover       : @text-normal-color;
+
+// date-picker
+@picker-panel-border      : @border-base-color;
+@picker-panel-bg          : @main-1-color;
+@picker-dayNorm-fontColor : @text-normal-color;
+@picker-dayDis-fontColor  : @text-disabled-color;
+@picker-dayHover-bg       : @main-2-color;
+@picker-daySelec-bg       : @main-base-color;
+@picker-selec-fontColor   : @text-content-color;
+@picker-titleHover-color  : @main-5-color;
+@picker-slideBar-bg       : @main-3-color;
+@picker-today-underline   : @yellow-base-color;
+@picker-placeholder       : @placeholder-color;
+@picker-inputDis-bg       : @bg-disabled-color;
+@picker-inputDis-borderColor  : @border-disabled-color;
+@picker-preNext-dayColor  : @remark-msg-color;
+
+// table
+@table-border-color       : @bg-disabled-color;
+@table-body-fontColor     : @text-content-color;
+@table-header-bg          : @main-1-color;
+@table-header-fontColor   : @info-title-color;
+@table-icon-color         : @main-4-color;
+@table-empty-fontColor    : @remark-msg-color;
+@table-link-fontColor     : @text-link-color;
+@table-filter-border      : @border-base-color;
+@table-filter-button      : @main-5-color;
+@table-filter-buttonDis   : @text-disabled-color;
+@table-required-bg        : @red-2-color;
+@table-rowHover-bg        : rgba(22, 117, 203, 0.5);
+@table-oddRow-bg          : rgba(3, 13, 24, 0.502);
+@table-evenRow-bg         : rgba(4, 23, 41, 0.502);
+@table-oddEvenRow-shadow  : rgba(29, 30, 33, 0.004);
+
+// tree
+@tree-background          : @main-1-color;
+@tree-label-color         : @text-normal-color;
+@tree-labelHover-color    : @link-hover-color;
+@tree-icon-color          : @main-base-color;
+@tree-iconHover-color     : @main-5-color;
+@tree-nodeHover-bg        : @main-1-color;
+@tree-nodeHover-border    : @main-2-color;
+
+// dropdown
+@dropdown-border          : @border-base-color;
+@dropdown-bg              : @main-1-color;
+@dropdown-item-color      : @text-content-color;
+@dropdown-itemHover-bg    : @main-base-color;
+@dropdown-defaultTitle-bg : @main-3-color;

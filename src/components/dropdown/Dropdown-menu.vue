@@ -1,5 +1,7 @@
 <template>
-  <ul class="s-dropdown-menu"><slot></slot></ul>
+  <ul class="s-dropdown-menu">
+    <slot></slot>
+  </ul>
 </template>
 
 <script>

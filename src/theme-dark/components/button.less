@@ -5,9 +5,9 @@
   text-align: center;
   cursor: pointer;
   box-sizing: border-box;
-  padding: 8px 18px;
+  padding: 8px 12px;
   margin: 0;
-  font-size: 12px;
+  font-size: @font-size-base;
   border-radius: 2px;
   outline: none;
   user-select: none;
@@ -15,45 +15,39 @@
   position: relative;
 }
 .s-button.is-disabled, .s-button.is-disabled:hover, .s-button.is-disabled:active {
-  color: #677383;
-  border: 1px solid #344458;
-  background: rgba(33, 44, 61, 0.6);
+  color: @btn-disabled-word;
+  border: 1px solid @btn-disabled-border;
+  background: @btn-disabled-bg;
   cursor: not-allowed;
   opacity: 1;
 }
 .s-button-default {
-  color: #dee9f3;
-  background: #053b66;
-  border: 1px solid #125f9f;
+  color: @btn-default-word;
+  background: @btn-default-bg;
+  border: 1px solid @btn-default-border;
 }
 .s-button-default:hover {
-  border: 1px solid #04a1e9;
-  background: #0070b2;
+  border: 1px solid @btn-hover;
+  background: @btn-default-border;
 }
 .s-button-default:active {
-  opacity: 0.8;
+  border: 1px solid @btn-default-bg;
+  background: @btn-default-bg;
 }
 .s-button-cancel {
-  color: #8997a3;
-  border: 1px solid #125f9f;
-  background: rgba(5, 59, 102, 0.49);
+  color: @btn-default-border;
+  border: 1px solid @btn-default-border;
+  background: @btn-cancel-bg;
 }
 .s-button-cancel:hover {
-  background: #002847;
+  color: @btn-hover;
+  background: @btn-default-bg;
 }
 .s-button-cancel:active {
-  background: #011f37;
+  border: 1px solid @btn-default-bg;
+  background: @btn-default-bg;
 }
-.s-button-icon-only {
-  padding: 5px 10px;
-}
-.s-button-icon-only .iconfont {
-  font-size: 18px;
-}
-.s-button-icon {
-  padding: 7px 14px;
-}
-.s-button-icon .iconfont {
+.s-button .iconfont {
   font-size: 14px;
 }
 .s-button-icon span {

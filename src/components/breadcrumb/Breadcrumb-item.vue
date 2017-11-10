@@ -1,6 +1,8 @@
 <template>
   <span class="s-breadcrumb-item">
-    <span class="s-breadcrumb-item-inner" ref="link"><slot></slot></span>
+    <span class="s-breadcrumb-item-inner" ref="link">
+      <slot></slot>
+    </span>
     <span class="s-breadcrumb-separator">{{ separator }}</span>
   </span>
 </template>
@@ -29,23 +31,3 @@
     }
   }
 </script>
-<style>
-  .s-breadcrumb-item {
-    float: left;
-  }
-  .s-breadcrumb-item-inner {
-    color: #e5f5fa;
-    transition: color .15s linear;
-  }
-  .s-breadcrumb-item-inner:hover {
-    cursor: pointer;
-    color: #20a0ff;
-  }
-  .s-breadcrumb-separator {
-    margin: 0 8px;
-    color: #bfcbd9;
-  }
-  .s-breadcrumb-item:last-child .s-breadcrumb-separator {
-    display: none;
-  }
-</style>

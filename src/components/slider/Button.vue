@@ -1,15 +1,22 @@
 <template>
   <div
-          class="s-slider-button-wrapper"
+          class="s-slider__button-wrapper"
           @mouseenter="handleMouseEnter"
           @mouseleave="handleMouseLeave"
           @mousedown="onButtonDown"
-          :class="{ 'hover': hovering, 'dragging': dragging }"
-          :style="{ left: currentPosition }"
-          ref="button">
-    <s-tooltip placement="top" ref="tooltip">
-      <span slot="content">{{ value }}</span>
-      <div class="s-slider-button" :class="{ 'hover': hovering, 'dragging': dragging }"></div>
+          :class="[{ 'hover': hovering, 'dragging': dragging }]"
+          :style="wrapperStyle"
+          ref="button"
+          tabindex="0"
+          @focus="handleMouseEnter"
+          @blur="handleMouseLeave"
+          @keydown.left="onLeftKeyDown"
+          @keydown.right="onRightKeyDown"
+          @keydown.down.prevent="onLeftKeyDown"
+          @keydown.up.prevent="onRightKeyDown">
+    <s-tooltip placement="top" ref="tooltip" :disabled="!showTooltip">
+      <span slot="content">{{ formatValue }}</span>
+      <div class="s-slider__button" :class="[{ 'hover': hovering, 'dragging': dragging }]"></div>
     </s-tooltip>
   </div>
 </template>
@@ -18,7 +25,7 @@
   import Tooltip from '../tooltip';
 
   export default {
-    name: 's-slider-button',
+    name: 'SSliderButton',
 
     components: {
       Tooltip
@@ -28,6 +35,10 @@
       value: {
         type: Number,
         default: 0
+      },
+      vertical: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -35,8 +46,11 @@
       return {
         hovering: false,
         dragging: false,
+        isClick: false,
         startX: 0,
         currentX: 0,
+        startY: 0,
+        currentY: 0,
         startPosition: 0,
         newPosition: null,
         oldValue: this.value
@@ -60,12 +74,28 @@
         return this.$parent.step;
       },
 
+      showTooltip() {
+        return this.$parent.showTooltip;
+      },
+
       precision() {
         return this.$parent.precision;
       },
 
       currentPosition() {
-        return `${(this.value - this.min) / (this.max - this.min) * 100}%`;
+        return `${ (this.value - this.min) / (this.max - this.min) * 100 }%`;
+      },
+
+      enableFormat() {
+        return this.$parent.formatTooltip instanceof Function;
+      },
+
+      formatValue() {
+        return this.enableFormat && this.$parent.formatTooltip(this.value) || this.value;
+      },
+
+      wrapperStyle() {
+        return this.vertical ? { bottom: this.currentPosition } : { left: this.currentPosition };
       }
     },
 
@@ -76,7 +106,7 @@
     },
 
     methods: {
-      showTooltip() {
+      displayTooltip() {
         this.$refs.tooltip && (this.$refs.tooltip.showPopper = true);
       },
 
@@ -86,7 +116,7 @@
 
       handleMouseEnter() {
         this.hovering = true;
-        this.showTooltip();
+        this.displayTooltip();
       },
 
       handleMouseLeave() {
@@ -102,18 +132,41 @@
         window.addEventListener('mouseup', this.onDragEnd);
         window.addEventListener('contextmenu', this.onDragEnd);
       },
-
+      onLeftKeyDown() {
+        if (this.disabled) return;
+        this.newPosition = parseFloat(this.currentPosition) - this.step / (this.max - this.min) * 100;
+        this.setPosition(this.newPosition);
+      },
+      onRightKeyDown() {
+        if (this.disabled) return;
+        this.newPosition = parseFloat(this.currentPosition) + this.step / (this.max - this.min) * 100;
+        this.setPosition(this.newPosition);
+      },
       onDragStart(event) {
         this.dragging = true;
-        this.startX = event.clientX;
-        this.startPosition = parseInt(this.currentPosition, 10);
+        this.isClick = true;
+        if (this.vertical) {
+          this.startY = event.clientY;
+        } else {
+          this.startX = event.clientX;
+        }
+        this.startPosition = parseFloat(this.currentPosition);
+        this.newPosition = this.startPosition;
       },
 
       onDragging(event) {
         if (this.dragging) {
-          this.showTooltip();
-          this.currentX = event.clientX;
-          const diff = (this.currentX - this.startX) / this.$parent.$sliderWidth * 100;
+          this.isClick = false;
+          this.displayTooltip();
+          this.$parent.resetSize();
+          let diff = 0;
+          if (this.vertical) {
+            this.currentY = event.clientY;
+            diff = (this.startY - this.currentY) / this.$parent.sliderSize * 100;
+          } else {
+            this.currentX = event.clientX;
+            diff = (this.currentX - this.startX) / this.$parent.sliderSize * 100;
+          }
           this.newPosition = this.startPosition + diff;
           this.setPosition(this.newPosition);
         }
@@ -128,7 +181,10 @@
           setTimeout(() => {
             this.dragging = false;
             this.hideTooltip();
-            this.setPosition(this.newPosition);
+            if (!this.isClick) {
+              this.setPosition(this.newPosition);
+              this.$parent.emitChange();
+            }
           }, 0);
           window.removeEventListener('mousemove', this.onDragging);
           window.removeEventListener('mouseup', this.onDragEnd);
@@ -137,6 +193,7 @@
       },
 
       setPosition(newPosition) {
+        if (newPosition === null) return;
         if (newPosition < 0) {
           newPosition = 0;
         } else if (newPosition > 100) {
@@ -147,7 +204,9 @@
         let value = steps * lengthPerStep * (this.max - this.min) * 0.01 + this.min;
         value = parseFloat(value.toFixed(this.precision));
         this.$emit('input', value);
-        this.$refs.tooltip && this.$refs.tooltip.updatePopper();
+        this.$nextTick(() => {
+          this.$refs.tooltip && this.$refs.tooltip.updatePopper();
+        });
         if (!this.dragging && this.value !== this.oldValue) {
           this.oldValue = this.value;
         }

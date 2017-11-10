@@ -5,6 +5,6 @@
 </template>
 <script>
   export default {
-    name: 's-button-group'
+    name: 'SButtonGroup'
   };
 </script>

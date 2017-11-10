@@ -7,7 +7,6 @@
         <pulse-loader :class="classes" v-if="pulseShow" :color="color" :size="size"></pulse-loader>
         <clip-loader :class="classes"  v-if="clipShow" :color="color" :size="size"></clip-loader>
         <beat-loader :class="classes" v-if="beatShow" :color="color" :size="size"></beat-loader>
-        <fade-loader :class="classes" v-if="fadeShow" :color="color" :height="height" :width="width"></fade-loader>
         <scale-loader :class="classes" v-if="scaleShow" :color="color" :height="height" :width="width"></scale-loader>
         <moon-loader :class="classes" v-if="moonShow" :color="color" :size="size"></moon-loader>
     </div>
@@ -17,12 +16,11 @@
 import pulseLoader from './PulseLoader'
 import clipLoader from './ClipLoader'
 import beatLoader from './BeatLoader'
-import fadeLoader from './FadeLoader'
 import scaleLoader from './ScaleLoader'
 import moonLoader from './MoonLoader'
 export default {
   name: 'sSpin',
-  components: { pulseLoader, clipLoader, beatLoader, fadeLoader, scaleLoader, moonLoader },
+  components: { pulseLoader, clipLoader, beatLoader, scaleLoader, moonLoader },
   computed: {
     classes() {
       return {

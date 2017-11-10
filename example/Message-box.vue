@@ -274,7 +274,7 @@
       <p>如果你完整引入了 Element，它会为 Vue.prototype 添加如下全局方法：$msgbox, $alert, $confirm 和 $prompt。
         因此在 Vue instance 中可以采用本页面中的方式调用 <code>MessageBox</code>。调用参数为：
       </p>
-      <ul>
+      <ul class="demo-ul">
         <li><code>$msgbox(options)</code></li>
         <li><code>$alert(message, title, options)</code> 或 <code>$alert(message, options)</code></li>
         <li><code>$confirm(message, title, options)</code> 或 <code>$confirm(message, options)</code></li>

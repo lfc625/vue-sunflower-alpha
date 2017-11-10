@@ -1,4 +1,3 @@
-@import "../theme-chalk.less";
 .s-alert {
   border: 1px solid;
   border-radius: 4px;
@@ -35,39 +34,39 @@
     font-weight: 700;
   }
   &-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     left: 8px;
-    top: 10px;
+    top: 8px;
     display: block;
     position: absolute;
   }
   &-success {
-    border-color: @success-border-color;
-    background-color: @success-main-color;
+    border-color: @alert-sb-color;
+    background-color: @alert-s-color;
   }
   &-info {
-    border-color: @info-border-color;
-    background-color: @info-main-color;
+    border-color: @alert-ib-color;
+    background-color: @alert-i-color;
   }
   &-warning {
-    border-color: @warn-border-color;
-    background-color: @warn-main-color;
+    border-color: @alert-wb-color;
+    background-color: @alert-w-color;
   }
   &-error {
-    border-color: @error-border-color;
-    background-color: @error-main-color;
+    border-color: @alert-eb-color;
+    background-color: @alert-e-color;
   }
   &-icon-success {
-    background: url(../img/icon-alert-circle-check.svg);
+    background: url(../img/icon_scs.png);
   }
   &-icon-info {
-    background: url(../img/icon-alert-info.svg);
+    background: url(../img/icon_info.png);
   }
   &-icon-warning {
-    background: url(../img/icon-alert-warning.svg);
+    background: url(../img/icon_alarm.png);
   }
   &-icon-error {
-    background: url(../img/icon-alert-circle-cross.svg);
+    background: url(../img/icon_error.png);
   }
 }

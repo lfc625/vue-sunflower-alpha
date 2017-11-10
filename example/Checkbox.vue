@@ -1,61 +1,35 @@
 <template>
   <article class="article">
     <h1>Checkbox</h1>
-
     <h3>基础用法</h3>
-    <p>单独使用可以表示两种状态之间的切换，写在标签中的内容为 checkbox 按钮后的介绍。</p>
     <div class="example">
       <div class="example-demo">
         <s-checkbox v-model="checked">备选项</s-checkbox>
       </div>
-      <div class="example-code">
-        <div class="description"><p>在<code>s-checkbox</code>元素中定义<code>v-model</code>绑定变量，单一的<code>checkbox</code>中，默认绑定变量的值会是<code>Boolean</code>，选中为<code>true</code>。
-        </p></div>
-        <pre><code>
-    &lt;s-checkbox v-model="checked"&gt;备选项&lt;/s-checkbox&gt;
-    &lt;script&gt;
-    export default {
-      data() {
-        return {
-          checked: true
-        }
-      }
-    }
-    &lt;/script&gt;
-        </code></pre>
-      </div>
+      <example-code>
+        <textarea>
+           <s-checkbox v-model="checked">备选项</s-checkbox>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
     </div>
 
-    <h3 id="jin-yong-zhuang-tai"> 禁用状态</h3>
-    <p>多选框不可用状态。</p>
+    <h3>禁用状态</h3>
     <div class="example">
       <div class="example-demo">
         <s-checkbox v-model="checked1" disabled>备选项1</s-checkbox>
         <s-checkbox v-model="checked2" disabled>备选项</s-checkbox>
       </div>
-      <div class="example-code">
-        <div class="description"><p>设置<code>disabled</code>属性即可。</p></div>
-        <pre><code>
-&lt;template&gt;
-  &lt;s-checkbox v-model="checked1" disabled&gt;备选项1&lt;/s-checkbox&gt;
-  &lt;s-checkbox v-model="checked2" disabled&gt;备选项&lt;/s-checkbox&gt;
-&lt;/template&gt;
-&lt;script&gt;
-  export default {
-      data() {
-          return {
-              checked1: false,
-              checked2: true
-          };
-      }
-  };
-&lt;/script&gt;
-        </code></pre>
-      </div>
+      <example-code>
+        <textarea>
+            <s-checkbox v-model="checked1" disabled>备选项1</s-checkbox>
+            <s-checkbox v-model="checked2" disabled>备选项</s-checkbox>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
     </div>
 
     <h3>多选框组</h3>
-    <p>适用于多个勾选框绑定到同一个数组的情景，通过是否勾选来表示这一组选项中选中的项。</p>
     <div class="example">
       <div class="example-demo">
         <s-checkbox-group v-model="checkList">
@@ -66,31 +40,18 @@
           <s-checkbox label="选中且禁用" disabled></s-checkbox>
         </s-checkbox-group>
       </div>
-      <div class="example-code">
-        <div class="description"><p><code>checkbox-group</code>元素能把多个 checkbox 管理为一组，只需要在 Group 中使用<code>v-model</code>绑定<code>Array</code>类型的变量即可。 <code>s-checkbox</code>
-          的 <code>label</code>属性是该 checkbox 对应的值，若该标签中无内容，则该属性也充当 checkbox 按钮后的介绍。<code>label</code>与数组中的元素值相对应，如果存在指定的值则为选中状态，否则为不选中。
-        </p></div>
-        <pre><code>
-&lt;template&gt;
-  &lt;s-checkbox-group v-model="checkList"&gt;
-  &lt;s-checkbox label="复选框 A"&gt;&lt;/s-checkbox&gt;
-  &lt;s-checkbox label="复选框 B"&gt;&lt;/s-checkbox&gt;
-  &lt;s-checkbox label="复选框 C"&gt;&lt;/s-checkbox&gt;
-  &lt;s-checkbox label="禁用" disabled&gt;&lt;/s-checkbox&gt;
-  &lt;s-checkbox label="选中且禁用" disabled&gt;&lt;/s-checkbox&gt;
-&lt;/s-checkbox-group&gt;
-&lt;/template>
-&lt;script&gt;
-  export default {
-      data () {
-          return {
-              checkList: ['选中且禁用','复选框 A']
-          };
-      }
-  };
-&lt;/script&gt;
-        </code></pre>
-      </div>
+      <example-code>
+        <textarea>
+            <s-checkbox-group v-model="checkList">
+              <s-checkbox label="复选框 A"></s-checkbox>
+              <s-checkbox label="复选框 B"></s-checkbox>
+              <s-checkbox label="复选框 C"></s-checkbox>
+              <s-checkbox label="禁用" disabled></s-checkbox>
+              <s-checkbox label="选中且禁用" disabled></s-checkbox>
+          </s-checkbox-group>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
     </div>
 
     <h3>indeterminate 状态</h3>
@@ -103,43 +64,89 @@
           <s-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox>
         </s-checkbox-group>
       </div>
-      <div class="example-code">
-        <pre><code>
-&lt;template&gt;
-  &lt;s-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange"&gt;全选&lt;/s-checkbox&gt;
-  &lt;div style="margin: 15px 0;"&gt;&lt;/div&gt;
-  &lt;s-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange"&gt;
-    &lt;s-checkbox v-for="city in cities" :label="city"&gt;{ { city } }&lt;/s-checkbox&gt;
-  &lt;/s-checkbox-group&gt;
-&lt;/template&gt;
-&lt;script&gt;
-  const cityOptions = ['上海', '北京', '广州', '深圳'];
-  export default {
-      data() {
-          return {
-              checkAll: true,
-              checkedCities: ['上海', '北京'],
-              cities: cityOptions,
-              isIndeterminate: true
-          };
-      },
-      methods: {
-          handleCheckAllChange(event) {
-              this.checkedCities = event.target.checked ? cityOptions : [];
-              this.isIndeterminate = false;
-          },
-          handleCheckedCitiesChange(value) {
-              let checkedCount = value.length;
-              this.checkAll = checkedCount === this.cities.length;
-              this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
-          }
-      }
-  };
-&lt;/script&gt;
-        </code></pre>
+      <example-code>
+        <textarea>
+            <s-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</s-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <s-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <s-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox>
+            </s-checkbox-group>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+    <h3>限制选择的数量</h3>
+    <div class="example">
+      <div class="example-demo">
+        <s-checkbox-group
+                v-model="checkedCities1"
+                :min="1"
+                :max="2">
+          <s-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox>
+        </s-checkbox-group>
+      </div>
+      <example-code>
+        <textarea>
+            <s-checkbox-group
+                    v-model="checkedCities1"
+                    :min="1"
+                    :max="2">
+              <s-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox>
+            </s-checkbox-group>
+        </textarea>
+        <pre><code></code></pre>
+      </example-code>
+    </div>
+    <h3>按钮样式</h3>
+    <div class="example">
+      <div class="example-demo">
+        <div>
+          <s-checkbox-group v-model="checkboxGroup1">
+            <s-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox-button>
+          </s-checkbox-group>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox-group v-model="checkboxGroup2" size="medium">
+            <s-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox-button>
+          </s-checkbox-group>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox-group v-model="checkboxGroup3" size="small">
+            <s-checkbox-button v-for="city in cities" :label="city" :disabled="city === '北京'" :key="city">{{city}}</s-checkbox-button>
+          </s-checkbox-group>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox-group v-model="checkboxGroup4" size="mini" disabled>
+            <s-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</s-checkbox-button>
+          </s-checkbox-group>
+        </div>
       </div>
     </div>
-
+    <h3>带有边框</h3>
+    <div class="example">
+      <div class="example-demo">
+        <div>
+          <s-checkbox v-model="checked3" label="备选项1" border></s-checkbox>
+          <s-checkbox v-model="checked4" label="备选项2" border></s-checkbox>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox v-model="checked5" label="备选项1" border size="medium"></s-checkbox>
+          <s-checkbox v-model="checked6" label="备选项2" border size="medium"></s-checkbox>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox-group v-model="checkboxGroup5" size="small">
+            <s-checkbox label="备选项1" border></s-checkbox>
+            <s-checkbox label="备选项2" border disabled></s-checkbox>
+          </s-checkbox-group>
+        </div>
+        <div style="margin-top: 20px">
+          <s-checkbox-group v-model="checkboxGroup6" size="mini" disabled>
+            <s-checkbox label="备选项1" border></s-checkbox>
+            <s-checkbox label="备选项2" border></s-checkbox>
+          </s-checkbox-group>
+        </div>
+      </div>
+    </div>
     <h3 id="checkbox-attributes"> Checkbox Attributes</h3>
     <table class="table">
       <thead>
@@ -233,14 +240,25 @@
         checked2: true,
         checkList: ['选中且禁用', '复选框 A'],
         checkAll: true,
+        checkedCities1: ['上海', '北京'],
         checkedCities: ['上海', '北京'],
         cities: cityOptions,
-        isIndeterminate: true
+        isIndeterminate: true,
+        checkboxGroup1: ['上海'],
+        checkboxGroup2: ['上海'],
+        checkboxGroup3: ['上海'],
+        checkboxGroup4: ['上海'],
+        checked3: true,
+        checked4: false,
+        checked5: false,
+        checked6: true,
+        checkboxGroup5: [],
+        checkboxGroup6: []
       }
     },
     methods: {
-      handleCheckAllChange(event) {
-        this.checkedCities = event.target.checked ? cityOptions : [];
+      handleCheckAllChange(val) {
+        this.checkedCities = val ? cityOptions : [];
         this.isIndeterminate = false;
       },
       handleCheckedCitiesChange(value) {

@@ -2,8 +2,8 @@
   <span>
     <transition :name="transition" @after-leave="doDestroy">
       <div
-        class="s-popover"
-        :class="[popperClass]"
+        class="s-popover s-popper"
+        :class="[popperClass, content && 's-popover-plain']"
         ref="popper"
         v-show="!disabled && showPopper"
         :style="{ width: width + 'px' }">
@@ -162,119 +162,4 @@
   };
 </script>
 <style>
-  .s-popover {
-    position: absolute;
-    background: #000a17;
-    min-width: 150px;
-    border-radius: 2px;
-    border: 1px solid rgba(168, 168, 168, 0.54);
-    padding: 10px;
-    z-index: 2000;
-    font-size: 12px;
-    color: #e5f5fa;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 0 6px 0 rgba(0,0,0,.04)
-  }
-
-  .s-popover .popper-arrow,
-  .s-popover .popper-arrow:after {
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid
-  }
-
-  .s-popover .popper-arrow {
-    border-width: 6px
-  }
-
-  .s-popover .popper-arrow:after {
-    content: " ";
-    border-width: 6px
-  }
-
-  .s-popover[x-placement^=top] {
-    margin-bottom: 12px
-  }
-
-  .s-popover[x-placement^=top] .popper-arrow {
-    bottom: -6px;
-    left: 50%;
-    margin-right: 3px;
-    border-top-color: #d1dbe5;
-    border-bottom-width: 0
-  }
-
-  .s-popover[x-placement^=top] .popper-arrow:after {
-    bottom: 1px;
-    margin-left: -6px;
-    border-top-color: #000a17;
-    border-bottom-width: 0
-  }
-
-  .s-popover[x-placement^=bottom] {
-    margin-top: 12px
-  }
-
-  .s-popover[x-placement^=bottom] .popper-arrow {
-    top: -6px;
-    left: 50%;
-    margin-right: 3px;
-    border-top-width: 0;
-    border-bottom-color: #d1dbe5
-  }
-
-  .s-popover[x-placement^=bottom] .popper-arrow:after {
-    top: 1px;
-    margin-left: -6px;
-    border-top-width: 0;
-    border-bottom-color: #000a17
-  }
-
-  .s-popover[x-placement^=right] {
-    margin-left: 12px
-  }
-
-  .s-popover[x-placement^=right] .popper-arrow {
-    top: 50%;
-    left: -6px;
-    margin-bottom: 3px;
-    border-right-color: #d1dbe5;
-    border-left-width: 0
-  }
-
-  .s-popover[x-placement^=right] .popper-arrow:after {
-    bottom: -6px;
-    left: 1px;
-    border-right-color: #000a17;
-    border-left-width: 0
-  }
-
-  .s-popover[x-placement^=left] {
-    margin-right: 12px
-  }
-
-  .s-popover[x-placement^=left] .popper-arrow {
-    top: 50%;
-    right: -6px;
-    margin-bottom: 3px;
-    border-right-width: 0;
-    border-left-color: #d1dbe5
-  }
-
-  .s-popover[x-placement^=left] .popper-arrow:after {
-    right: 1px;
-    bottom: -6px;
-    margin-left: -6px;
-    border-right-width: 0;
-    border-left-color: #fff
-  }
-
-  .s-popover-title {
-    color: #31aaff;
-    font-size: 13px;
-    line-height: 1;
-    margin-bottom: 9px
-  }
 </style>

@@ -49,6 +49,7 @@
       :value="displayValue && displayValue[0]"
       :disabled="disabled"
       :id="id && id[0]"
+      :readonly="!editable || readonly"
       :name="name && name[0]"
       @input="handleStartInput"
       @change="handleStartChange"
@@ -60,6 +61,7 @@
       :value="displayValue && displayValue[1]"
       :disabled="disabled"
       :id="id && id[1]"
+      :readonly="!editable || readonly"
       :name="name && name[1]"
       @input="handleEndInput"
       @change="handleEndChange"
@@ -306,8 +308,14 @@ export default {
     valueFormat: String,
     readonly: Boolean,
     placeholder: String,
-    startPlaceholder: String,
-    endPlaceholder: String,
+    startPlaceholder: {
+      type: String,
+      default: '请选择开始时间'
+    },
+    endPlaceholder: {
+      type: String,
+      default: '请选择结束时间'
+    },
     name: {
       default: '',
       validator
@@ -800,6 +808,3 @@ export default {
   }
 };
 </script>
-<style>
-
-</style>

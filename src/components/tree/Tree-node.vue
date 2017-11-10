@@ -1,43 +1,44 @@
 <template>
   <div class="s-tree-node"
-       @click.stop="handleClick"
-       v-show="node.visible"
-       :class="{
-      'is-expanded': childNodeRendered && expanded,
-      'is-current': highlightCurrent && tree.store.currentNode === node,
+    @click.stop="handleClick"
+    v-show="node.visible"
+    :class="{
+      'is-expanded': expanded,
+      'is-current': tree.store.currentNode === node,
       'is-hidden': !node.visible
     }">
     <div class="s-tree-node-content"
-         :style="{ 'margin-left': (node.level - 1) * tree.indent + 'px' }">
+      :style="{ 'padding-left': (node.level - 1) * tree.indent + 'px' }">
       <span
-              class="s-tree-node-expand-icon"
-              @click.stop="handleExpandIconClick"
-              :class="{ 'is-leaf': node.isLeaf, expanded: !node.isLeaf && expanded }">
+        class="s-tree-node-expand-icon iconfont icon-right-bold"
+        @click.stop="handleExpandIconClick"
+        :class="{ 'is-leaf': node.isLeaf, expanded: !node.isLeaf && expanded }">
       </span>
       <s-checkbox
-              v-if="showCheckbox"
-              v-model="node.checked"
-              :indeterminate="node.indeterminate"
-              @change="handleCheckChange"
-              @click.native.stop="handleUserClick">
+        v-if="showCheckbox"
+        v-model="node.checked"
+        :indeterminate="node.indeterminate"
+        :disabled="!!node.disabled"
+        @click.native.stop
+        @change="handleCheckChange">
       </s-checkbox>
       <span
-              v-if="node.loading"
-              class="s-tree-node-loading-icon s-icon-loading">
+        v-if="node.loading"
+        class="s-tree-node-loading-icon s-icon-loading">
       </span>
       <node-content :node="node"></node-content>
     </div>
     <collapse-transition>
       <div
-              class="s-tree-node-children"
-              v-show="expanded">
+        class="s-tree-node-children"
+        v-if="childNodeRendered"
+        v-show="expanded">
         <s-tree-node
-                :render-content="renderContent"
-                v-for="child in node.childNodes"
-                :key="getNodeKey(child)"
-                :node="child"
-                :highlight-current="highlightCurrent"
-                @node-expand="handleChildNodeExpand">
+          :render-content="renderContent"
+          v-for="child in node.childNodes"
+          :key="getNodeKey(child)"
+          :node="child"
+          @node-expand="handleChildNodeExpand">
         </s-tree-node>
       </div>
     </collapse-transition>
@@ -63,8 +64,7 @@
         }
       },
       props: {},
-      renderContent: Function,
-      highlightCurrent: Boolean
+      renderContent: Function
     },
 
     components: {
@@ -111,7 +111,7 @@
       },
 
       'node.expanded'(val) {
-        this.expanded = val;
+        this.$nextTick(() => this.expanded = val);
         if (val) {
           this.childNodeRendered = true;
         }
@@ -157,16 +157,8 @@
         }
       },
 
-      handleUserClick() {
-        if (this.node.indeterminate) {
-          this.node.setChecked(this.node.checked, !this.tree.checkStrictly);
-        }
-      },
-
-      handleCheckChange(ev) {
-        if (!this.node.indeterminate) {
-          this.node.setChecked(ev.target.checked, !this.tree.checkStrictly);
-        }
+      handleCheckChange(value, ev) {
+        this.node.setChecked(ev.target.checked, !this.tree.checkStrictly);
       },
 
       handleChildNodeExpand(nodeData, node, instance) {

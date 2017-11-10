@@ -1,5 +1,7 @@
 <template>
-  <li :class="classes" @click="handleClick"><slot></slot></li>
+  <li :class="classes" @click="handleClick">
+    <slot></slot>
+  </li>
 </template>
 
 <script>
@@ -55,7 +57,3 @@
     }
   };
 </script>
-
-<style >
-
-</style>
